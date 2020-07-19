@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../../file.js"></script>
+    <script src="../../overall.js"></script>
+    <script src="../../controls.js"></script>
+    <script src="../../select.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../overall.css">
+    <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.0/dist/spectrum.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.0/dist/spectrum.min.css">
+</head>
+<body>
+
+    <div class="main">
+        <div class="config">
+            <div>
+                <span>Player: </span><select class="player-select" name="player"></select>
+                <span>Color: </span><input id='colorpicker' />
+            </div>
+            <div>
+                <span>Player Image URL:</span><input id="playerImageURL"/>
+                Top: <input type="range" min="-300" max="300" value="50" class="slider" id="imageTop">
+                Left: <input type="range" min="-300" max="300" value="50" class="slider" id="imageLeft">
+                Size: <input type="range" min="500" max="2000" value="500" class="slider" id="imageSize">
+                Width: <input type="range" min="200" max="900" value="350" class="slider" id="imageWidth">
+                Height: <input type="range" min="200" max="900" value="350" class="slider" id="imageHeight">
+            </div>
+            <textarea rows="5" cols="50" id="postDescription"></textarea>
+            <textarea rows="5" cols="15">#fifa #ultimateteam #soccer #lovesoccer #football #ea #easports #careermodefifa #fifa20 #fifa21 #futebol #jogador #futbol #foxsports #espn #fifastats #data #datascience #sports</textarea>
+
+
+        </div>
+        <div class="background-image"></div>
+        <div id="imgPost" class="post">
+            <img src="../../tfs-logo.png" class="tfs-logo">
+            <div class="title">
+                <div class="player-name-text">Neymar</div><div class="text"> FIFA Evolution</div>
+            </div>
+            <div class="chart"></div>
+
+        </div>
+
+    </div>
+    <script>
+        $('.player-select').on('change', event => {
+
+            const id = parseInt(event.target.value)
+            $.get(`http://127.0.0.1:5000/player/${id}`, data => {
+                $('div.chart').empty()
+                $.each(data['result'], (index, item) => {
+                    let bar = ''
+                    bar += '<div class="bar" id="bar-' + index + '">'
+                    bar += '    <div class="bar-top">'
+                    bar += '        <div class="team-logo"><img src="' + item['team_image_url'] + '"></div>'
+                    bar += '        <div class="overall" id="overall-' + index + '">' + item['overall_rating'] + '</div>'
+                    bar += '    </div>'
+                    bar += '    <div class="fifa-version"><img src="../../fifa-logos/fifa-' + item['version_name'] + '.jpg"></div>'
+                    bar += '</div>'
+
+                    $('div.chart').append(bar)
+                    updateOverallColor($('#overall-' + index), item['overall_rating'])
+                    $('#bar-' + index).css('height', item['overall_rating'] * item['overall_rating'] / 25)
+                    $('.player-name-text').text(item['name'])
+                    $('#postDescription').text(`This is ${item['name']}'s overall evolution from FIFA 07-20
+What is the best version of him?
+
+How we build this graph 🛠
+- We get the player overall for each FIFA
+- Game updates are NOT considered, only the first version of the main release
+
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+
+More players and more stats to come!`)
+
+
+                })
+            })
+        })
+        $('#playerImageURL').on('change', event => {
+            $('.background-image').css('background-image', 'url("' + event.target.value + '")')
+        })
+        createImageControls($('.background-image'), $('#imageTop'), $('#imageLeft'), $('#imageWidth'), $('#imageHeight'), $('#imageSize'))
+        loadSelect('players', 'id', 'name', $('.player-select'))
+        $('#colorpicker').spectrum({
+            showAlpha: false,
+            type: "text",
+            preferredFormat: "rgb",
+            showPalette: "false"
+        });
+        $('#colorpicker').on('change', event => {
+            const color = event.target.value
+            $('.player-name-text').css('background-color', color)
+            $('.bar').css('background-color', color)
+            $('.chart').css('background-color', color.replace(')', ', 0.25)'))
+        })
+    </script>
+</body>
+</html>

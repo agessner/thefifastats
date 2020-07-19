@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comparasion</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="../file.js"></script>
+    <script src="../overall.js"></script>
+    <script src="../controls.js"></script>
+    <script src="../select.js"></script>
+    <link rel="stylesheet" type="text/css" href="../overall.css">
+</head>
+<body>
+
+        <div class="config">
+            <div>
+                <span>Version: </span><select class="version-select" name="version"></select>
+                <span>Position: </span><select class="position-select" name="position"></select>
+                <button id="loadData">Load</button>
+            </div>
+
+            <div>
+                <span>Player 1 Image URL:</span><input id="player1ImageURL"/>
+                Top: <input type="range" min="-2000" max="2000" value="50" class="slider" id="imageTop1">
+                Left: <input type="range" min="-2000" max="2000" value="50" class="slider" id="imageLeft1">
+                Width: <input type="range" min="0" max="2000" value="350" class="slider" id="imageWidth1">
+                Height: <input type="range" min="0" max="2000" value="350" class="slider" id="imageHeight1">
+                Size: <input type="range" min="500" max="2000" value="500" class="slider" id="imageSize1">
+            </div>
+            <div>
+                <span>Player 2 Image URL:</span><input id="player2ImageURL"/>
+                Top: <input type="range" min="-2000" max="2000" value="50" class="slider" id="imageTop2">
+                Left: <input type="range" min="-2000" max="2000" value="50" class="slider" id="imageLeft2">
+                Width: <input type="range" min="0" max="2000" value="350" class="slider" id="imageWidth2">
+                Height: <input type="range" min="0" max="2000" value="350" class="slider" id="imageHeight2">
+                Size: <input type="range" min="500" max="2000" value="500" class="slider" id="imageSize2">
+            </div>
+            <div>
+                <span>Player 3 Image URL:</span><input id="player3ImageURL"/>
+                Top: <input type="range" min="-2000" max="2000" value="50" class="slider" id="imageTop3">
+                Left: <input type="range" min="-2000" max="2000" value="50" class="slider" id="imageLeft3">
+                Width: <input type="range" min="0" max="2000" value="350" class="slider" id="imageWidth3">
+                Height: <input type="range" min="0" max="2000" value="350" class="slider" id="imageHeight3">
+                Size: <input type="range" min="500" max="2000" value="500" class="slider" id="imageSize3">
+            </div>
+            <textarea rows="5" cols="50" id="postDescription"></textarea>
+            <textarea rows="5" cols="15">#fifa #ultimateteam #soccer #lovesoccer #football #ea #easports #careermodefifa #fifa20 #fifa21 #futebol #jogador #futbol #foxsports #espn #fifastats #data #datascience #sports</textarea>
+        </div>
+        <div class="background-image-1" ></div>
+        <div class="background-image-2"></div>
+        <div class="background-image-3"></div>
+        <div id="imgPost" class="post">
+            <img src="../tfs-logo.png" class="tfs-logo">
+            <div class="title">
+                <img src="https://cdn.steamgriddb.com/logo/1d075e2fdbc8e2e66a47b39a0652ce31.png" class="fifa-logo">
+                <div class="title-text">TOP 3 STs</div>
+            </div>
+            <div class="chart"></div>
+        </div>
+    </div>
+    <script>
+        $('#loadData').on('click', () => {
+            const version_name = $('.version-select option:selected').text()
+            const player_position = $('.position-select option:selected').text()
+            $.get(`http://127.0.0.1:5000/comparasion/${version_name}/${player_position}`, data => {
+                $('div.chart').empty()
+                $.each(data['result'], (index, item) => {
+                    let bar = ''
+                    bar += '<div class="player" id="player-' + index + '">'
+                    bar += '    <div class="team-logo"><img src="' + item['team_image_url'] + '"></div>'
+                    bar += '    <div class="overall" id="overall-' + index + '">' + item['overall_rating'] + '</div>'
+                    bar += '    <div class="name">' + item['name'] + '</div>'
+                    bar += '</div>'
+
+                    $('div.chart').append(bar)
+                    updateOverallColor($('#overall-' + index), item['overall_rating'])
+                })
+                $('.title-text').text(`TOP 3 ${player_position}s`)
+                $('#postDescription').text(`This are the FIFA 11 TOP 3 CFs
+What player is your favorite?
+
+How we build this graph 🛠
+- We get the to 3 players for this FIFA version
+- Game updates are NOT considered, only the last version of the main release
+- The position is based on the player’s best position
+
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+
+More players and more stats to come!`)
+            })
+            $('.fifa-logo').attr('src', logos[version_name]['src'])
+            $('.fifa-logo').css('width', logos[version_name]['width'])
+        })
+
+        $('#player1ImageURL').on('change', event => {
+            $('.background-image-1').css('background-image', 'url("' + event.target.value + '")')
+        })
+        $('#player2ImageURL').on('change', event => {
+            $('.background-image-2').css('background-image', 'url("' + event.target.value + '")')
+        })
+        $('#player3ImageURL').on('change', event => {
+            $('.background-image-3').css('background-image', 'url("' + event.target.value + '")')
+        })
+        createImageControls($('.background-image-1'), $('#imageTop1'), $('#imageLeft1'), $('#imageWidth1'), $('#imageHeight1'), $('#imageSize1'))
+        createImageControls($('.background-image-2'), $('#imageTop2'), $('#imageLeft2'), $('#imageWidth2'), $('#imageHeight2'), $('#imageSize2'))
+        createImageControls($('.background-image-3'), $('#imageTop3'), $('#imageLeft3'), $('#imageWidth3'), $('#imageHeight3'), $('#imageSize3'))
+        loadSelect('versions', 'version_name', 'version_name', $('.version-select'))
+        loadSelect('player-positions', 'player_position', 'player_position', $('.position-select'))
+
+        const logos = {
+            'FIFA 07' : {
+                'src': 'https://cdn.steamgriddb.com/logo/1d075e2fdbc8e2e66a47b39a0652ce31.png',
+                'width': '35%'
+            },
+            'FIFA 08' : {
+                'src': 'https://cdn.steamgriddb.com/logo/8ef899fe33f78d18506d037fd734f900.png',
+                'width': '25%'
+            },
+            'FIFA 09' : {
+                'src': 'https://images.launchbox-app.com/2f62e99f-0ab2-4e87-ab74-ddfb3c56d8c0.png',
+                'width': '35%'
+            },
+            'FIFA 10' : {
+                'src': 'https://i.neoseeker.com/mgv/255404/404/2/fifa10_head_display.png',
+                'width': '32%'
+            },
+            'FIFA 11' : {
+                'src': 'https://www.logolynx.com/images/logolynx/07/07372f100b10edcbc717a845321ffb6f.jpeg',
+                'width': '25%'
+            },
+            'FIFA 12' : {
+                'src': 'https://www.ps3blog.ch/wp-content/uploads/2011/07/FIFA12logoTEXTrgb-1024x355.jpg',
+                'width': '25%'
+            },
+            'FIFA 13' : {
+                'src': 'https://www.mobilegamer.com.br/wp-content/uploads/2012/06/FIFA-13.png',
+                'width': '25%'
+            },
+            'FIFA 14' : {
+                'src': 'https://www.gametactics.com/wp-content/uploads/2013/06/FIFA-14-LOGO-SMALL.jpg',
+                'width': '31%'
+            },
+            'FIFA 15' : {
+                'src': 'https://lh3.googleusercontent.com/proxy/lR72uFN55W2dMftnPHMZYPEn90T9XxZaD8vS0HzZ2V2D3h5lF3o8Xv5tANwFVIat5b_2O98ALpY9fAtUWG7xYQylT_kd7vox8MtEPSe6_EE',
+                'width': '35%'
+            },
+            'FIFA 16' : {
+                'src': 'https://blognicematin.typepad.com/.a/6a0120a864ed46970b01bb08782aa6970d-600wi',
+                'width': '27%'
+            },
+            'FIFA 17' : {
+                'src': 'https://www.fifplay.com/img/public/ea-sports-fifa-17-logo.png',
+                'width': '35%'
+            },
+            'FIFA 18' : {
+                'src': '../fifa-logos/fifa-18-complete.png',
+                'width': '35%'
+            },
+            'FIFA 19' : {
+                'src': 'https://www.fifplay.com/img/public/fifa-19-logo-black.png',
+                'width': '35%'
+            },
+            'FIFA 20' : {
+                'src': 'https://cdn131.picsart.com/305054538099211.png?type=webp&to=min&r=640',
+                'width': '30%'
+            },
+        }
+
+    </script>
+</body>
+</html>

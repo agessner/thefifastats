@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Best Team</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../file.js"></script>
+    <script src="../overall.js"></script>
+    <script src="../controls.js"></script>
+    <script src="../select.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../overall.css">
+    <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.0/dist/spectrum.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.0/dist/spectrum.min.css">
+</head>
+<body>
+
+    <div class="main">
+        <div class="config">
+            <div>
+                <span>Mode: </span>
+                <select class="mode-select">
+                    <option value="teams">Team</option>
+                    <option value="national-teams">National Team</option>
+                </select>
+                <span>Worst or Best: </span>
+                <select class="worst-or-best-select">
+                    <option value="worst">Worst</option>
+                    <option value="best">Best</option>
+                </select>
+                <span>Team: </span><select class="team-select" name="team"></select>
+                <button id="loadData">Load</button>
+            </div>
+            <div>
+                <span>Color: </span><input id='colorpicker' />
+            </div>
+            <textarea rows="5" cols="50" id="postDescription"></textarea>
+            <textarea rows="5" cols="15">#fifa #ultimateteam #soccer #lovesoccer #football #ea #easports #careermodefifa #fifa20 #fifa21 #futebol #jogador #futbol #foxsports #espn #fifastats #data #datascience #sports</textarea>
+        </div>
+        <div id="imgPost" class="post">
+            <div class="title">BEST OVERALL STARTING XI</div>
+            <div class="logo">
+                <img src="https://logodownload.org/wp-content/uploads/2017/02/Arsenal-logo-escudo-shield.png">
+            </div>
+            <div class="stats">
+                <div class="avg">
+                    <label>Avg: </label>
+                    <div class="avg-value stats-value"></div>
+                </div>
+                <div class="min">
+                    <label>Min: </label>
+                    <div class="min-value stats-value"></div>
+                </div>
+                <div class="max">
+                    <label>Max: </label>
+                    <div class="max-value stats-value"></div>
+                </div>
+            </div>
+            <div class="field">
+            </div>
+            <table></table>
+        </div>
+
+    </div>
+    <script>
+        updateStats = () => {
+            let overallCheckedSum = 0
+            let overallCheckedLength = 0
+            let max = 0
+            let min = 99
+            $('tr').each((index, player) => {
+                const checked = $(player).find('input:checked').length
+                if (checked) {
+                    var overall = parseFloat($(player).find('td:nth-child(4)').text())
+                    overallCheckedSum += overall
+                    overallCheckedLength += 1
+                    if (overall < min) {
+                        min = overall
+                    }
+                    if (overall > max) {
+                        max = overall
+                    }
+                }
+            })
+            const avg = Math.round(overallCheckedSum/overallCheckedLength)
+            $('.avg-value').text(avg)
+            updateOverallColor($('.avg-value'), avg)
+            $('.min-value').text(min)
+            updateOverallColor($('.min-value'), min)
+            $('.max-value').text(max)
+            updateOverallColor($('.max-value'), max)
+        }
+
+         $('#loadData').on('click', () => {
+             const mode = $('.mode-select option:selected').val()
+             const teamName = $('.team-select option:selected').text()
+             let url = ''
+             if (mode === 'teams') {
+                 const selectedOption = $('.worst-or-best-select option:selected').val()
+                 url = selectedOption === 'best' ? 'best-starting-team' : 'worst-starting-team'
+                 $('.title').text(`${selectedOption.toUpperCase()} OVERALL STARTING XI`)
+                 $('#postDescription').text(`${teamName} Worst X Best Starting XI FIFA Team from 07-20
+Do you agree?
+
+How we build this squad 🛠
+- We get the lower and higher overall for each position
+- Game updates are NOT considered, only the last version of the main release
+- If two players have the same overall, we get the older one (we like nostalgia 👩‍🦳👨‍🦳)
+- SUBs are not considered
+- Finally, the squad formation is decided by the one we like the most 👨‍🎨👩‍🎨
+
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+
+More teams and more stats to come!`)
+             } else if (mode === 'national-teams') {
+                 url = 'national-teams'
+                 $('.title').text(`BEST OVERALL XI FROM FIFA 07-20`)
+                 $('#postDescription').text(`${teamName} best overall XI FIFA Team from 07-20
+Only missing a good Left Back, right?
+Can you name another player that should be here?
+
+How we build this squad 🛠
+- We get the higher overall for each position
+- Game updates are NOT considered, only the last version of the main release
+- If two players have the same overall, we get the older one (we like nostalgia 👩‍🦳👨‍🦳)
+- Only the best player position is considered
+- Finally, the squad formation is decided by the one we like the most 👨‍🎨👩‍🎨
+
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+
+More teams and more stats to come!`)
+             }
+
+             $.get(`http://127.0.0.1:5000/${url}/${teamName}`, data => {
+                 $('div.field').empty()
+                 $('table').empty()
+                 $.each(data['result'], function (index, player) {
+
+
+                     let playerDiv = ""
+                     playerDiv += "<div class='player " + index + "'>"
+                     playerDiv += "    <div class='player-image'>"
+                     playerDiv += "    </div>"
+                     playerDiv += "    <div class='label'>"
+                     playerDiv += "        <div class='name'>" + player.name + "</div>"
+                     playerDiv += "        <div class='fifa-version'>"
+                     playerDiv += "            <div class='fifa-version'>"
+                     playerDiv += "                <img src='../fifa-logos/fifa-" + player.version_name + ".jpg'>"
+                     playerDiv += "            </div>"
+                     playerDiv += "            <div class='overall " + getRatingClass(player.overall_rating) + "'>" + player.overall_rating + "</div>"
+                     playerDiv += "        </div>"
+                     playerDiv += "    </div>"
+                     playerDiv += "</div>"
+                     $('div.field').append(playerDiv)
+                     if (player.player_position in divPositions) {
+                         $('.player.' + index + '').css('margin', divPositions[player.player_position]['margin'])
+                     }
+                     const playerImage = $(`<img src='${player.image_url}' />`)
+                     playerImage.on('load', () => {
+                         $('.player.' + index + ' > div.player-image').append(playerImage)
+                     }).on('error', () => {
+                         $('.player.' + index + ' > div.player-image').append(
+                             $(`<img src='https://cdn.sofifa.com/players/notfound_0_120.png' />`)
+                         )
+                     })
+
+
+                     $('.player.' + index + '').draggable()
+
+                     selectPlayer = (e) => {
+                         var id = $(e.target).attr('id')
+                         $('.' + id).toggle()
+                         updateStats()
+                     }
+
+                     $('table').append($('<tr>').append(
+                         $('<td>').text(player.name),
+                         $('<td>').text(player.player_position),
+                         $('<td>').text(player.version_name),
+                         $('<td>').text(player.overall_rating),
+                         $('<td>').append('<input id=' + index + ' type="checkbox" checked>')
+                     ))
+                     $('#' + index).on('change', selectPlayer)
+                     $('.logo > img').attr('src', player.team_image_url)
+                 })
+             })
+
+         })
+
+        const divPositions = {
+            'GK': { 'margin': '380px auto auto auto' },
+            'SW' : { 'margin': '305px 160px auto auto' },
+            'RWB' : { 'margin': '270px 160px auto 535px' },
+            'RB' : { 'margin': '305px 160px auto 540px' },
+            'RCB' : { 'margin': '305px 160px auto 295px' },
+            'CB' : { 'margin': '305px auto auto auto' },
+            'LCB' : { 'margin': '305px 160px auto 0px' },
+            'LB' : { 'margin': '305px 160px auto -230px' },
+            'LWB' : { 'margin': '270px 160px auto -219px' },
+            'RDM' : { 'margin': '207px 140px auto 320px' },
+            'CDM' : { 'margin': '207px auto auto auto' },
+            'LDM' : { 'margin': '207px 140px auto -40px' },
+            'RM' : { 'margin': '138px 350px auto 635px' },
+            'RCM' : { 'margin': '185px 140px auto 295px' },
+            'CM' : { 'margin': '185px auto auto auto' },
+            'LCM' : { 'margin': '185px auto auto -165px' },
+            'LM' : { 'margin': '138px 160px auto -168px' },
+            'RW' : { 'margin': '66px -144px auto 110px' },
+            'RAM' : { 'margin': '130px auto auto 120px' },
+            'CAM' : { 'margin': '130px auto auto auto' },
+            'LAM' : { 'margin': '130px auto auto -120px' },
+            'LW' : { 'margin': '80px 160px auto -110px' },
+            'RF' : { 'margin': '35px -88px auto 60px' },
+            'RS' : { 'margin': '35px -88px auto 60px' },
+            'CF' : { 'margin': '90px auto auto auto' },
+            'LS' : { 'margin': '35px 160px auto 60px' },
+            'LF' : { 'margin': '35px 160px auto 60px' },
+            'ST' : { 'margin': '32px auto auto auto' },
+        }
+
+        $('#teamLogoURL').on('change', event => {
+            $('.logo > img').attr('src', event.target.value)
+        })
+        $('.mode-select').on('change', event => {
+            $('.team-select').empty()
+            loadSelect(event.target.value, 'team_name', 'team_name', $('.team-select'))
+        })
+        loadSelect('teams', 'team_name', 'team_name', $('.team-select'))
+        $('.mode-select').select2()
+        $('.worst-or-best-select').select2()
+        $('#colorpicker').spectrum({
+            showAlpha: false,
+            type: "text",
+            preferredFormat: "rgb",
+            showPalette: "false"
+        });
+        $('#colorpicker').on('change', event => {
+            const color = event.target.value
+            $('.label').css('background-color', color)
+            $('.title').css('background-color', color.replace(')', ', 0.25)'))
+        })
+    </script>
+</body>
+</html>

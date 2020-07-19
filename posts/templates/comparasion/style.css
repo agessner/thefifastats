@@ -1,0 +1,151 @@
+@font-face {
+  font-family: prompt-regular;
+  src: url(../fonts/Prompt/Prompt-Regular.ttf);
+}
+
+body {
+    font-family: prompt-regular;
+}
+
+.config {
+    height: 240px;
+    padding: 15px;
+}
+
+.config div {
+    display: flex;
+    padding-bottom: 15px;
+    height: 25px;
+}
+
+.config div span {
+    margin-right: 5px;
+
+}
+
+.post {
+    display: flex;
+    padding-left: 80px;
+}
+
+.chart {
+    display: flex;
+    height: 454px;
+    width: 500px;
+    background-color: rgba(35, 124, 42, 0.18);
+    justify-content: space-evenly;
+    flex-flow: column;
+    padding-top: 46px;
+    margin-left: -35px;
+}
+
+.background-image-1 {
+    content: "";
+    background-image: url("https://i.pinimg.com/originals/cc/d8/70/ccd8703c4525ac592ac3325605916a3f.jpg");
+    opacity: 0.9;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    width: 762px;
+    height: 150px;
+    top: 324px;
+    left: -19px;
+}
+
+.background-image-2 {
+    content: "";
+    background-image: url("https://www3.pictures.zimbio.com/gi/Luca+Toni+ACF+Fiorentina+v+AC+Siena+Serie+xcWKT3TCMj9l.jpg");
+    opacity: 0.9;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    height: 150px;
+    width: 821px;
+    top: 474px;
+    left: -6px;
+}
+
+.background-image-3 {
+    content: "";
+    background-image: url("https://www4.pictures.gi.zimbio.com/Samuel+Eto+o+Barcelona+v+Malaga+La+Liga+NLJSz1bgYUMl.jpg");
+    opacity: 0.9;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    width: 683px;
+    height: 153px;
+    left: -14px;
+    top: 624px;
+}
+
+.bar {
+    background-color: #23327d;
+    display: flex;
+    width: 25px;
+}
+
+.fifa-logo {
+    display: flex;
+    width: 35%;
+    margin-left: 5px;
+}
+
+.team-logo img {
+    width: 55px;
+    position: relative;
+}
+
+.bar-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.tfs-logo {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    left: 457px;
+    top: 453px;
+    position: relative;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    background-color: white;
+    position: absolute;
+    width: 500px;
+    display: flex;
+}
+
+.title .title-text {
+    background: #444444;
+    padding: 0 5px 0 5px;
+    color: white;
+    display: flex;
+    width: 70%;
+    margin-left: 10px;
+    justify-content: center;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.overall {
+    top: 0px !important;
+    height: 34px !important;
+    font-size: 25px !important;
+    width: 35px !important;
+}
+
+.name {
+    color: white;
+    font-size: 25px;
+}
