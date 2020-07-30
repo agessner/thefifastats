@@ -7,6 +7,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.0/dist/spectrum.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2@2.0.0/dist/spectrum.min.css">
     <script src="../../file.js"></script>
     <script src="../../overall.js"></script>
     <script src="../../controls.js"></script>
@@ -16,43 +20,54 @@
 
     <div class="main">
         <div class="config">
-            <div><span>Players: </span><input id="player" type="file"></div>
-            <span>Background Image URL:</span><input id="playerImageURL"/>
-            <select id="positionSelect">
-                <option>GK</option>
-                <option>SW</option>
-                <option>RWB</option>
-                <option>RB</option>
-                <option>RCB</option>
-                <option>CB</option>
-                <option>LCB</option>
-                <option>LB</option>
-                <option>LWB</option>
-                <option>RDM</option>
-                <option>CDM</option>
-                <option>LDM</option>
-                <option>RM</option>
-                <option>RCM</option>
-                <option>CM</option>
-                <option>LCM</option>
-                <option>LM</option>
-                <option>RW</option>
-                <option>RAM</option>
-                <option>CAM</option>
-                <option>LAM</option>
-                <option>LW</option>
-                <option>RF</option>
-                <option>RS</option>
-                <option>CF</option>
-                <option>LS</option>
-                <option>LF</option>
-                <option>ST</option>
-            </select>
-            <input id="mainColor" type="color" >
-            Top: <input type="range" min="-300" max="300" value="50" class="slider" id="imageTop">
-            Left: <input type="range" min="-300" max="300" value="50" class="slider" id="imageLeft">
-            Width: <input type="range" min="200" max="900" value="350" class="slider" id="imageWidth">
-            Height: <input type="range" min="200" max="900" value="350" class="slider" id="imageHeight">
+            <div>
+                <select id="positionSelect">
+                    <option>GK</option>
+                    <option>SW</option>
+                    <option>RWB</option>
+                    <option>RB</option>
+                    <option>RCB</option>
+                    <option>CB</option>
+                    <option>LCB</option>
+                    <option>LB</option>
+                    <option>LWB</option>
+                    <option>RDM</option>
+                    <option>CDM</option>
+                    <option>LDM</option>
+                    <option>RM</option>
+                    <option>RCM</option>
+                    <option>CM</option>
+                    <option>LCM</option>
+                    <option>LM</option>
+                    <option>RW</option>
+                    <option>RAM</option>
+                    <option>CAM</option>
+                    <option>LAM</option>
+                    <option>LW</option>
+                    <option>RF</option>
+                    <option>RS</option>
+                    <option>CF</option>
+                    <option>LS</option>
+                    <option>LF</option>
+                    <option>ST</option>
+                </select>
+                <select class="part-select">
+                    <option>First part</option>
+                    <option>Second part</option>
+                </select>
+                <button id="loadData">Load</button>
+            </div>
+            <div>
+                <span>Background Image URL:</span><input id="playerImageURL"/>
+                <span>Color: <input id="colorpicker" ></span>
+                Top: <input type="range" min="-300" max="300" value="50" class="slider" id="imageTop">
+                Left: <input type="range" min="-300" max="300" value="50" class="slider" id="imageLeft">
+                Width: <input type="range" min="200" max="900" value="350" class="slider" id="imageWidth">
+                Height: <input type="range" min="200" max="900" value="350" class="slider" id="imageHeight">
+                Size: <input type="range" min="500" max="2000" value="500" class="slider" id="imageSize">
+            </div>
+            <textarea rows="5" cols="50" id="postDescription"></textarea>
+            <textarea rows="5" cols="15">#fifa #ultimateteam #soccer #lovesoccer #football #ea #easports #careermodefifa #fifa20 #fifa21 #futebol #jogador #futbol #foxsports #espn #fifastats #data #datascience #sports</textarea>
         </div>
         <div class="background-image"></div>
         <div id="imgPost" class="post">
@@ -62,44 +77,61 @@
 
             </div>
             <div class="chart"></div>
-            <textarea rows="15" cols="100" id="postDescription">
-Those are the best {position} from FIFA 07-20
+        </div>
+    </div>
+    <script>
+        const loadData = () => {
+            const position = $('#positionSelect option:selected').text()
+            const part = $('.part-select option:selected').text()
+            $('div.chart').empty()
+            $.get(`http://127.0.0.1:5000/position-evoloution/${position}`, data => {
+                const half = parseInt(data['result'].length / 2)
+                const splitedResult = part === 'First part' ? data['result'].slice(0, half) : data['result'].slice(half)
+                $.each(splitedResult, (index, item) => {
+                    let bar = ''
+                    bar += '<div class="container">'
+                    bar += '    <div class="bar" id="bar-' + index + '">'
+                    bar += '    </div>'
+                    bar += '    <div class="fifa-version"><img src="../../fifa-logos/fifa-' + item['version_name'] + '.jpg"></div>'
+                    bar += '    <div class="bar-top">'
+                    bar += '        <div class="overall" id="overall-' + index + '">' + item['value'] + '</div>'
+                    bar += '    </div>'
+                    bar += '    <div class="player-info" id="playerInfo' + index + '">'
+                    bar += '        <div class="player-image"></div>'
+                    bar += '        <div class="name">' + item['name'] + '</div>'
+                    bar += '    </div>'
+                    bar += '</div>'
+                    const playerImage = $(`<img src='${item['image_url']}' />`)
+                     playerImage.on('load', () => {
+                         $('#playerInfo' + index + ' > div.player-image').append(playerImage)
+                     }).on('error', () => {
+                         $('#playerInfo' + index + ' > div.player-image').append(
+                             $(`<img src='https://cdn.sofifa.com/players/notfound_0_120.png' />`)
+                         )
+                     })
+
+                    $('div.chart').append(bar)
+                    updateOverallColor($('#overall-' + index), item['value'])
+                    $('#bar-' + index).css('width', item['value'] * item['value'] / 40)
+                })
+            })
+            $('#postDescription').text(`Those are the best ${position} from FIFA 07-20
 Which one do you like the most?
 
 How we build this graph 🛠
 - We get the max overall for each FIFA Version
-- Game updates are NOT considered, only the first version of the main release
-- If two players have the same overall, we choose the one we like the most!
+- Game updates are NOT considered, only the last version of the main release
+- Positions are defined by the best player position
 
 FOLLOW: @thefifastats
 FOLLOW: @thefifastats
 FOLLOW: @thefifastats
 
-More players and more stats to come!
-            </textarea>
-        </div>
-    </div>
-    <script>
-        loadFileContent('#player', data => {
-            $('div.chart').empty()
-            $.each(data, (index, item) => {
-                let bar = ''
-                bar += '<div class="container">'
-                bar += '    <div class="bar" id="bar-' + index + '">'
-                bar += '    </div>'
-                bar += '    <div class="fifa-version"><img src="../../fifa-logos/fifa-' + item['version_name'] + '.jpg"></div>'
-                bar += '    <div class="bar-top">'
-                bar += '        <div class="overall" id="overall-' + index + '">' + item['value'] + '</div>'
-                bar += '    </div>'
-                bar += '    <div class="team-logo"><img src="' + item['image_url'] + '"></div>'
-                bar += '    <div class="name">'+ item['name'] + '</div>'
-                bar += '</div>'
-
-                $('div.chart').append(bar)
-                updateOverallColor($('#overall-' + index), item['value'])
-                $('#bar-' + index).css('width', item['value'] * item['value'] / 40)
-            })
-        })
+More players and more stats to come!`)
+        }
+        $('#loadData').on('click', loadData)
+        $('#positionSelect').select2()
+        $('.part-select').select2()
         $('#playerImageURL').on('change', event => {
             $('.background-image').css('background-image', 'url("' + event.target.value + '")')
         })
@@ -107,12 +139,19 @@ More players and more stats to come!
             $('.player-name-text').text('BEST ' + event.target.value + 's')
             $('#postDescription').text($('#postDescription').text().replace('{position}', event.target.value + '\'s'))
         })
-        $('#mainColor').on('change', event => {
-
+        $('#colorpicker').spectrum({
+            showAlpha: false,
+            type: "text",
+            preferredFormat: "rgb",
+            showPalette: "false"
+        });
+        $('#colorpicker').on('change', event => {
+            const color = event.target.value
             $('.player-name-text').css('background', event.target.value)
             $('.bar').css('background-color', event.target.value)
+            $('.chart').css('background-color', color.replace(')', ', 0.4)'))
         })
-        createImageControls($('.background-image'), $('#imageTop'), $('#imageLeft'), $('#imageWidth'), $('#imageHeight'))
+        createImageControls($('.background-image'), $('#imageTop'), $('#imageLeft'), $('#imageWidth'), $('#imageHeight'), $('#imageSize'))
     </script>
 </body>
 </html>
