@@ -128,6 +128,17 @@ def get_potential_team(team_name):
     """, team_name=team_name)
 
 
+@app.route('/position-evoloution/<position>')
+def get_position_evolution(position):
+    return _get_bigquery_result("""
+        SELECT 
+            * 
+        FROM `analysis.best_players_by_position_and_version` 
+        WHERE player_position = '{position}' 
+        ORDER BY version_name 
+    """, position=position)
+
+
 def _get_bigquery_result(query, **kwargs):
     client = bigquery.Client()
     formated_query = query.format(**kwargs) if kwargs else query
