@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import {Container} from "@material-ui/core";
+import {Container, Grid} from "@material-ui/core";
 import gateways from "./gateways";
 import Select from 'react-select';
 import {Logo} from "./Logo";
@@ -56,7 +56,7 @@ export class Player extends React.Component {
                 <div className='bar' id={id} style={style}>
                     <div className='bar-top'>
                         <div className='team-logo'>
-                            <img referrerPolicy="no-referrer" src={version.team_image_url} alt='' />
+                            <Img referrerPolicy="no-referrer" src={version.team_image_url} alt='' />
                         </div>
                         <div className='overall'>
                             <Overall value={version.overall_rating} />
@@ -70,23 +70,34 @@ export class Player extends React.Component {
         })
         return (
             <Container fixed>
-                <h1>Players</h1>
-                <Select
-                    options={this.state.players}
-                    isLoading={this.state.isLoading}
-                    onChange={this.changePlayer}
-                />
-                <div className="background-image" />
-                <div id="imgPost" className="post">
-                    <Logo/>
-                    <div className="title">
-                        <div className="player-name-text">{this.state.selectedPlayer.name}</div>
-                        <div className="text">FIFA Evolution</div>
-                    </div>
-                    <div className="chart">
-                        {playerVersions}
-                    </div>
-                </div>
+                <Grid container className='config'>
+                    <Grid item xs={12}>
+                        <h2>Configure</h2>
+                    </Grid>
+                    <Grid item xs={3}>
+                        Player
+                        <Select
+                            options={this.state.players}
+                            isLoading={this.state.isLoading}
+                            onChange={this.changePlayer}
+                        />
+                    </Grid>
+                </Grid>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <div className="background-image" />
+                        <div id="imgPost" className="post">
+                            <Logo/>
+                            <div className="title">
+                                <div className="player-name-text">{this.state.selectedPlayer.name}</div>
+                                <div className="text">FIFA Evolution</div>
+                            </div>
+                            <div className="chart">
+                                {playerVersions}
+                            </div>
+                        </div>
+                    </Grid>
+                </Grid>
             </Container>
 
         )

@@ -8,19 +8,7 @@ body {
 }
 
 .config {
-    height: 240px;
-    padding: 15px;
-}
-
-.config div {
-    display: flex;
-    padding-bottom: 15px;
-    height: 25px;
-}
-
-.config div span {
-    margin-right: 5px;
-
+    margin-bottom: 55px;
 }
 
 .post {
