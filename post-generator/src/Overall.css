@@ -1,0 +1,21 @@
+.overall {
+    color: white;
+    width: 25px;
+    text-align: center;
+}
+
+.lower-than-99 {
+    background-color: green;
+}
+
+.lower-than-81 {
+    background-color: #9bbf30;
+}
+
+.lower-than-71 {
+    background-color: #ffc940;
+}
+
+.lower-than-61 {
+    background-color: #e77e23;
+}

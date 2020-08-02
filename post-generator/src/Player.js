@@ -4,6 +4,7 @@ import gateways from "./gateways";
 import Select from 'react-select';
 import {Logo} from "./Logo";
 import './Player.css';
+import {Overall} from './Overall'
 import {Img} from 'react-image'
 
 
@@ -45,14 +46,6 @@ export class Player extends React.Component {
 
     render() {
         const playerVersions = []
-        // let bar = ''
-        //             bar += '<div class="bar" id="bar-' + index + '">'
-        //             bar += '    <div class="bar-top">'
-        //             bar += '        <div class="team-logo"><img src="' + item['team_image_url'] + '"></div>'
-        //             bar += '        <div class="overall" id="overall-' + index + '">' + item['overall_rating'] + '</div>'
-        //             bar += '    </div>'
-        //             bar += '    <div class="fifa-version"><img src="../../fifa-logos/fifa-' + item['version_name'] + '.jpg"></div>'
-        //             bar += '</div>'
         this.state.selectedPlayerVersions.forEach((version, index) => {
             const id = `bar-${index}`
             const style = {
@@ -66,7 +59,7 @@ export class Player extends React.Component {
                             <img referrerPolicy="no-referrer" src={version.team_image_url} alt='' />
                         </div>
                         <div className='overall'>
-                            {version.overall_rating}
+                            <Overall value={version.overall_rating} />
                         </div>
                     </div>
                     <div className='fifa-version'>
