@@ -5,6 +5,7 @@ import Select from 'react-select';
 import {Logo} from "./Logo";
 import './Player.css';
 import {Overall} from './Overall'
+import {Color} from './Color'
 import {Img} from 'react-image'
 
 
@@ -15,10 +16,13 @@ export class Player extends React.Component {
             players: [],
             isLoading: true,
             selectedPlayer: {},
-            selectedPlayerVersions: []
+            selectedPlayerVersions: [],
+            selectedColor: 'rgb(51,66,81)',
+            selectedColorAlpha: 'rgba(51,66,81,0.25)'
         };
 
         this.changePlayer = this.changePlayer.bind(this);
+        this.changeColor = this.changeColor.bind(this);
     }
 
     componentDidMount() {
@@ -44,19 +48,28 @@ export class Player extends React.Component {
         })
     }
 
+    changeColor(color) {
+        this.setState({selectedColor: this.getRgbaText(color.rgb)})
+        const colorAlpha = {...color.rgb, a: 0.25}
+        this.setState({selectedColorAlpha: this.getRgbaText(colorAlpha)})
+    }
+
+    getRgbaText(rgba) { return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})` }
+
     render() {
         const playerVersions = []
         this.state.selectedPlayerVersions.forEach((version, index) => {
             const id = `bar-${index}`
             const style = {
-                'height': version.overall_rating * version.overall_rating / 25
+                'height': version.overall_rating * version.overall_rating / 25,
+                'background-color': this.state.selectedColor
             }
             const fifaLogoSrc = require(`./fifa-logos/fifa-${version.version_name}.jpg`)
             playerVersions.push(
                 <div className='bar' id={id} style={style}>
                     <div className='bar-top'>
                         <div className='team-logo'>
-                            <Img referrerPolicy="no-referrer" src={version.team_image_url} alt='' />
+                            <img referrerPolicy="no-referrer" src={version.team_image_url} alt='' />
                         </div>
                         <div className='overall'>
                             <Overall value={version.overall_rating} />
@@ -81,6 +94,11 @@ export class Player extends React.Component {
                             isLoading={this.state.isLoading}
                             onChange={this.changePlayer}
                         />
+
+                    </Grid>
+                    <Grid item xs={3}>
+                        Color
+                        <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
                     </Grid>
                 </Grid>
                 <Grid container>
@@ -89,10 +107,10 @@ export class Player extends React.Component {
                         <div id="imgPost" className="post">
                             <Logo/>
                             <div className="title">
-                                <div className="player-name-text">{this.state.selectedPlayer.name}</div>
+                                <div className="player-name-text" style={{'background-color': this.state.selectedColor}}>{this.state.selectedPlayer.name}</div>
                                 <div className="text">FIFA Evolution</div>
                             </div>
-                            <div className="chart">
+                            <div className="chart" style={{'background-color': this.state.selectedColorAlpha}}>
                                 {playerVersions}
                             </div>
                         </div>
