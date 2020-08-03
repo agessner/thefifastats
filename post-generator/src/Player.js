@@ -83,11 +83,11 @@ export class Player extends React.Component {
         })
         return (
             <Container fixed >
-                <Grid container className='config'>
+                <Grid container className='config' spacing={2}>
                     <Grid item xs={12}>
                         <h2>Configure</h2>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         Player
                         <Select
                             options={this.state.players}
@@ -96,19 +96,19 @@ export class Player extends React.Component {
                         />
 
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         Color
                         <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <BackgroundImage
                             className="background-image"
                         />
                     </Grid>
                 </Grid>
                 <Grid container>
+                    <h2>Post</h2>
                     <Grid item xs={12}>
-
                         <div id="imgPost" className="post">
                             <Logo/>
                             <div className="title">
