@@ -29,16 +29,11 @@ body {
 
 .background-image {
     content: "";
-    background: url("https://i.pinimg.com/originals/60/b9/a3/60b9a32f53d0f9421d917ab8088d5287.jpg");
     opacity: 0.5;
-    top: 300px;
-    left: -140.9px;
     bottom: 0;
     right: 0;
     position: absolute;
     z-index: -1;
-    width: 649px;
-    height: 841px;
 }
 
 .bar {

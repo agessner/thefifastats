@@ -1,12 +1,12 @@
-import React, {Suspense} from 'react';
-import {Container, Grid} from "@material-ui/core";
+import React from 'react';
+import {Container, Grid, TextField, InputBase} from "@material-ui/core";
 import gateways from "./gateways";
 import Select from 'react-select';
 import {Logo} from "./Logo";
 import './Player.css';
 import {Overall} from './Overall'
 import {Color} from './Color'
-import {Img} from 'react-image'
+import {BackgroundImage} from "./BackgroundImage";
 
 
 export class Player extends React.Component {
@@ -82,7 +82,7 @@ export class Player extends React.Component {
             )
         })
         return (
-            <Container fixed>
+            <Container fixed >
                 <Grid container className='config'>
                     <Grid item xs={12}>
                         <h2>Configure</h2>
@@ -100,10 +100,15 @@ export class Player extends React.Component {
                         Color
                         <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
                     </Grid>
+                    <Grid item xs={6}>
+                        <BackgroundImage
+                            className="background-image"
+                        />
+                    </Grid>
                 </Grid>
                 <Grid container>
                     <Grid item xs={12}>
-                        <div className="background-image" />
+
                         <div id="imgPost" className="post">
                             <Logo/>
                             <div className="title">
