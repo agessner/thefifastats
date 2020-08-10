@@ -48,7 +48,7 @@ export class BackgroundImage extends React.Component {
     render() {
         return ([
             <Grid item xs={12}>
-                <TextField label="Background image URL" variant="outlined" onChange={this.changeBackgroundImageUrl}/>
+                <TextField label="Background image URL" label="Image URL" onChange={this.changeBackgroundImageUrl}/>
                 <label>Size: </label><input type='range' min="0" max="2000" value={this.state.backgroundImageSize} onChange={this.changeBackgroundImageSize}/>
                 <label>Width: </label><input type='range' min="0" max="2000" value={this.state.backgroundImageWidth} onChange={this.changeBackgroundImageWidth}/>
                 <label>Height: </label><input type='range' min="0" max="2000" value={this.state.backgroundImageHeight} onChange={this.changeBackgroundImageHeight}/>

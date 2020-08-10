@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Grid, TextField, InputBase} from "@material-ui/core";
+import {Container, Grid, TextField, InputBase, Divider} from "@material-ui/core";
 import gateways from "./gateways";
 import Select from 'react-select';
 import {Logo} from "./Logo";
@@ -83,22 +83,25 @@ export class Player extends React.Component {
         })
         return (
             <Container fixed >
+                <h2>Player Evolution</h2>
+                <Divider />
+                <br/>
                 <Grid container className='config' spacing={2}>
-                    <Grid item xs={12}>
-                        <h2>Configure</h2>
+                    <Grid item xs={6} >
+                        <div style={{'display': 'flex'}}>
+                            <label>Player</label>
+                            <Select
+                                options={this.state.players}
+                                isLoading={this.state.isLoading}
+                                onChange={this.changePlayer}
+                            />
+                        </div>
                     </Grid>
                     <Grid item xs={6}>
-                        Player
-                        <Select
-                            options={this.state.players}
-                            isLoading={this.state.isLoading}
-                            onChange={this.changePlayer}
-                        />
-
-                    </Grid>
-                    <Grid item xs={6}>
-                        Color
-                        <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
+                        <div style={{'display': 'flex'}}>
+                            <label>Color</label>
+                            <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
+                        </div>
                     </Grid>
                     <Grid item xs={12}>
                         <BackgroundImage
@@ -106,8 +109,9 @@ export class Player extends React.Component {
                         />
                     </Grid>
                 </Grid>
+                <br/>
+                <Divider />
                 <Grid container>
-                    <h2>Post</h2>
                     <Grid item xs={12}>
                         <div id="imgPost" className="post">
                             <Logo/>

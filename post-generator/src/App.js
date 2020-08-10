@@ -5,7 +5,8 @@ import {BrowserRouter as Router, Link as RouterLink, Route, Switch} from "react-
 import {Player} from "./Player";
 import {Home} from "./Home";
 import ListItemText from '@material-ui/core/ListItemText';
-import {List, ListItem, ListItemIcon} from "@material-ui/core";
+import {Hidden, List, ListItem, ListItemIcon, Drawer, AppBar, Divider} from "@material-ui/core";
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 function ListItemLink(props) {
   const { icon, primary, to } = props;
@@ -31,23 +32,84 @@ ListItemLink.propTypes = {
   to: PropTypes.string.isRequired,
 };
 
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+    },
+    drawer: {
+        [theme.breakpoints.up('sm')]: {
+            width: drawerWidth,
+            flexShrink: 0,
+        },
+    },
+    appBar: {
+        [theme.breakpoints.up('sm')]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginLeft: drawerWidth,
+            backgroundColor: 'unset',
+            color: '#2b2b2b',
+            position: 'unset'
+        },
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none',
+        },
+    },
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
+    },
+}));
+
+
+
 function App() {
+    const classes = useStyles();
+
+    const drawer = (
+        <div>
+            <div className={classes.toolbar} />
+            <Divider />
+            <List aria-label="main mailbox folders">
+                {['home', 'players'].map((text, index) => (
+                    <ListItemLink to={`/${text}`} primary={text} />
+                ))}
+            </List>
+        </div>
+    )
+
     return (
         <div className="App">
-            <Router>
-                <List aria-label="main mailbox folders">
-                    <ListItemLink to="/home" primary="Home" />
-                    <ListItemLink to="/players" primary="Players" />
-                </List>
-                <Switch>
-                    <Route path="/players">
-                        <Player/>
-                    </Route>
-                    <Route path="/">
-                        <Home/>
-                    </Route>
-                </Switch>
-            </Router>
+            <AppBar className={classes.appBar}>
+
+                <Router>
+                    <nav className={classes.drawer} aria-label="mailbox folders">
+                        <Hidden xsDown implementation="css">
+                            <Drawer
+                                variant="permanent"
+                                classes={{
+                                    paper: classes.drawerPaper,
+                                }}
+                                open
+                            >
+                                {drawer}
+                            </Drawer>
+                        </Hidden>
+                    </nav>
+                    <Switch>
+                            <Route path="/players"><Player/></Route>
+                            <Route path="/"><Home/></Route>
+                    </Switch>
+                </Router>
+            </AppBar>
         </div>
     );
 }
