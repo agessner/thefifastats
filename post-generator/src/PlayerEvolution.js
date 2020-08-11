@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Grid, TextField, InputBase, Divider} from "@material-ui/core";
+import {Container, Grid, Divider} from "@material-ui/core";
 import gateways from "./gateways";
 import Select from 'react-select';
 import {Logo} from "./Logo";
@@ -7,6 +7,7 @@ import './PlayerEvolution.css';
 import {Overall} from './Overall'
 import {Color} from './Color'
 import {BackgroundImage} from "./BackgroundImage";
+import Tags from "./Tags";
 
 
 export class PlayerEvolution extends React.Component {
@@ -16,6 +17,7 @@ export class PlayerEvolution extends React.Component {
             players: [],
             isLoading: true,
             selectedPlayer: {},
+            postDescription: '',
             selectedPlayerVersions: [],
             selectedColor: 'rgb(51,66,81)',
             selectedColorAlpha: 'rgba(51,66,81,0.25)'
@@ -39,11 +41,27 @@ export class PlayerEvolution extends React.Component {
         })
     }
 
+    getPostDescription(selectedPlayer) {
+        return `This is ${selectedPlayer.name}'s overall evolution from FIFA 07-20
+What is the best version of him?
+
+How we build this graph 🛠
+- We get the player overall for each FIFA
+- Game updates are NOT considered, only the last version of the main release
+
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+FOLLOW: @thefifastats
+
+More players and more stats to come!`
+    }
+
     changePlayer(selectedOption) {
         gateways.getPlayer(selectedOption.value).then(playerVersions => {
             this.setState({
                 selectedPlayer: playerVersions[0],
-                selectedPlayerVersions: playerVersions
+                selectedPlayerVersions: playerVersions,
+                postDescription: this.getPostDescription(playerVersions[0])
             })
         })
     }
@@ -87,17 +105,16 @@ export class PlayerEvolution extends React.Component {
                     <h2>Player Evolution</h2>
                     <Divider />
                     <br/>
-                    <Grid container     className='config' spacing={2}>
-                            <Grid item xs={6} >
+                    <Grid container className='config' spacing={2}>
+                            <Grid item xs={3} >
                                 <Select
                                     options={this.state.players}
                                     isLoading={this.state.isLoading}
                                     onChange={this.changePlayer}
                                     placeholder='Select a player'
-                                    style={{width: '200px'}}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={3}>
                                 <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
                             </Grid>
                         <Grid item xs={12}>
@@ -107,8 +124,9 @@ export class PlayerEvolution extends React.Component {
                 </Grid>
                 <br/>
                 <Divider />
+                <br/>
                 <Grid container>
-                    <Grid item xs={12}>
+                    <Grid item xs={8}>
                         <div id="imgPost" className="post">
                             <Logo/>
                             <div className="title">
@@ -119,6 +137,10 @@ export class PlayerEvolution extends React.Component {
                                 {playerVersions}
                             </div>
                         </div>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Grid item xs={12}><Tags/></Grid>
+                        <Grid item xs={12}><textarea value={this.state.postDescription} rows={12}/></Grid>
                     </Grid>
                 </Grid>
             </Container>
