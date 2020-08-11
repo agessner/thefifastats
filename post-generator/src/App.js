@@ -7,6 +7,7 @@ import {Home} from "./Home";
 import ListItemText from '@material-ui/core/ListItemText';
 import {Hidden, List, ListItem, ListItemIcon, Drawer, AppBar, Divider} from "@material-ui/core";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {Logo} from "./Logo";
 
 function ListItemLink(props) {
   const { icon, primary, to } = props;
@@ -76,6 +77,14 @@ function App() {
 
     const drawer = (
         <div>
+            <img
+                src={require('./static/tfs-logo.png')}
+                style={{
+                    width: '50px',
+                    margin: '11px auto -49px auto',
+                    display: 'flex'
+                }}
+            />
             <div className={classes.toolbar} />
             <Divider />
             <List aria-label="main mailbox folders">
