@@ -6,8 +6,7 @@ import {PlayerEvolution} from "./PlayerEvolution";
 import {Home} from "./Home";
 import ListItemText from '@material-ui/core/ListItemText';
 import {Hidden, List, ListItem, ListItemIcon, Drawer, AppBar, Divider} from "@material-ui/core";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {Logo} from "./Logo";
+import { makeStyles } from '@material-ui/core/styles';
 
 function ListItemLink(props) {
   const { icon, primary, to } = props;
