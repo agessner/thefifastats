@@ -1,4 +1,4 @@
-import {Grid, TextField} from "@material-ui/core"
+import {Grid, Slider, TextField, Typography} from "@material-ui/core"
 import React from "react"
 import PropTypes from 'prop-types'
 
@@ -25,35 +25,105 @@ export class BackgroundImage extends React.Component {
         this.setState({backgroundImageUrl: event.target.value})
     }
 
-    changeBackgroundImageSize(event) {
-        this.setState({backgroundImageSize: parseInt(event.target.value)})
+    changeBackgroundImageSize(event, value) {
+        this.setState({backgroundImageSize: parseInt(value)})
     }
 
-    changeBackgroundImageWidth(event) {
-        this.setState({backgroundImageWidth: parseInt(event.target.value)})
+    changeBackgroundImageWidth(event, value) {
+        this.setState({backgroundImageWidth: parseInt(value)})
     }
 
-    changeBackgroundImageHeight(event) {
-        this.setState({backgroundImageHeight: parseInt(event.target.value)})
+    changeBackgroundImageHeight(event, value) {
+        this.setState({backgroundImageHeight: parseInt(value)})
     }
 
-    changeBackgroundImageTop(event) {
-        this.setState({backgroundImageTop: parseInt(event.target.value)})
+    changeBackgroundImageTop(event, value) {
+        this.setState({backgroundImageTop: parseInt(value)})
     }
 
-    changeBackgroundImageLeft(event) {
-        this.setState({backgroundImageLeft: parseInt(event.target.value)})
+    changeBackgroundImageLeft(event, value) {
+        this.setState({backgroundImageLeft: parseInt(value)})
     }
 
     render() {
         return ([
-            <Grid item xs={12}>
-                <TextField label="Background image URL" label="Image URL" onChange={this.changeBackgroundImageUrl}/>
-                <label>Size: </label><input type='range' min="0" max="2000" value={this.state.backgroundImageSize} onChange={this.changeBackgroundImageSize}/>
-                <label>Width: </label><input type='range' min="0" max="2000" value={this.state.backgroundImageWidth} onChange={this.changeBackgroundImageWidth}/>
-                <label>Height: </label><input type='range' min="0" max="2000" value={this.state.backgroundImageHeight} onChange={this.changeBackgroundImageHeight}/>
-                <label>Top: </label><input type='range' min="0" max="2000" value={this.state.backgroundImageTop} onChange={this.changeBackgroundImageTop}/>
-                <label>Left: </label><input type='range' min="0" max="2000" value={this.state.backgroundImageLeft} onChange={this.changeBackgroundImageLeft}/>
+            <Grid container spacing={2}>
+                <Grid item xs={2}>
+                    <TextField label="Background image URL" label="Image URL" onChange={this.changeBackgroundImageUrl}/>
+                </Grid>
+                <Grid item xs={2}>
+                    <Typography id="size" gutterBottom>
+                        Size
+                    </Typography>
+                    <Slider
+                        defaultValue={500}
+                        aria-labelledby="size"
+                        min={0}
+                        max={2000}
+                        step={20}
+                        valueLabelDisplay="auto"
+                        onChange={this.changeBackgroundImageSize}
+                    />
+                </Grid>
+                <Grid item xs={2}>
+                    <Typography id="width" gutterBottom>
+                        Width
+                    </Typography>
+                    <Slider
+                        defaultValue={500}
+                        aria-labelledby="width"
+                        min={0}
+                        max={2000}
+                        step={20}
+                        valueLabelDisplay="auto"
+                        onChange={this.changeBackgroundImageWidth}
+                    />
+                </Grid>
+                <Grid item xs={2}>
+                    <Typography id="height" gutterBottom>
+                        Height
+                    </Typography>
+                    <Slider
+                        marks
+                        defaultValue={500}
+                        aria-labelledby="height"
+                        min={0}
+                        max={2000}
+                        step={20}
+                        valueLabelDisplay="auto"
+                        onChange={this.changeBackgroundImageHeight}
+                    />
+                </Grid>
+                <Grid item xs={2}>
+                    <Typography id="top" gutterBottom>
+                        Top
+                    </Typography>
+                    <Slider
+                        marks
+                        defaultValue={500}
+                        aria-labelledby="top"
+                        min={0}
+                        max={2000}
+                        step={20}
+                        valueLabelDisplay="auto"
+                        onChange={this.changeBackgroundImageTop}
+                    />
+                </Grid>
+                <Grid item xs={2}>
+                    <Typography id="left" gutterBottom>
+                        Left
+                    </Typography>
+                    <Slider
+                        marks
+                        defaultValue={500}
+                        aria-labelledby="left"
+                        min={0}
+                        max={2000}
+                        step={20}
+                        valueLabelDisplay="auto"
+                        onChange={this.changeBackgroundImageLeft}
+                    />
+                </Grid>
             </Grid>,
             <div
                 className={this.props.className}
