@@ -25,7 +25,13 @@ export class Color extends React.Component {
 
         return (
             <div>
-                <Button onClick={onTogglePicker} style={{'background-color': this.state.color}} />
+                <Button
+                    onClick={onTogglePicker}
+                    style={{
+                        'background-color': this.state.color,
+                        'height': '38px'
+                    }}
+                />
                 {this.state.pickerVisible && (
                     <div style={{position: 'absolute'}}>
                         <CompactPicker

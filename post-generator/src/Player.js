@@ -87,27 +87,21 @@ export class Player extends React.Component {
                     <h2>Player Evolution</h2>
                     <Divider />
                     <br/>
-                    <Grid container className='config' spacing={2}>
-                        <Grid item xs={6} >
-                            <div style={{'display': 'flex'}}>
-                                <label>Player</label>
+                    <Grid container     className='config' spacing={2}>
+                            <Grid item xs={6} >
                                 <Select
                                     options={this.state.players}
                                     isLoading={this.state.isLoading}
                                     onChange={this.changePlayer}
+                                    placeholder='Select a player'
+                                    style={{width: '200px'}}
                                 />
-                            </div>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <div style={{'display': 'flex'}}>
-                                <label>Color</label>
+                            </Grid>
+                            <Grid item xs={6}>
                                 <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
-                            </div>
-                        </Grid>
+                            </Grid>
                         <Grid item xs={12}>
-                            <BackgroundImage
-                                className="background-image"
-                            />
+                            <BackgroundImage className="background-image"/>
                         </Grid>
                     </Grid>
                 </Grid>
