@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
 import {BrowserRouter as Router, Link as RouterLink, Route, Switch} from "react-router-dom"
-import {Player} from "./Player";
+import {PlayerEvolution} from "./PlayerEvolution";
 import {Home} from "./Home";
 import ListItemText from '@material-ui/core/ListItemText';
 import {Hidden, List, ListItem, ListItemIcon, Drawer, AppBar, Divider} from "@material-ui/core";
@@ -79,8 +79,8 @@ function App() {
             <div className={classes.toolbar} />
             <Divider />
             <List aria-label="main mailbox folders">
-                {['home', 'players'].map((text, index) => (
-                    <ListItemLink to={`/${text}`} primary={text} />
+                {[['home', 'Home'], ['player-evolution', 'Player Evolution']].map((text, index) => (
+                    <ListItemLink to={`/${text[0]}`} primary={text[1]} />
                 ))}
             </List>
         </div>
@@ -89,7 +89,6 @@ function App() {
     return (
         <div className="App">
             <AppBar className={classes.appBar}>
-
                 <Router>
                     <nav className={classes.drawer} aria-label="mailbox folders">
                         <Hidden xsDown implementation="css">
@@ -105,7 +104,7 @@ function App() {
                         </Hidden>
                     </nav>
                     <Switch>
-                            <Route path="/players"><Player/></Route>
+                            <Route path="/player-evolution"><PlayerEvolution/></Route>
                             <Route path="/"><Home/></Route>
                     </Switch>
                 </Router>

@@ -3,13 +3,13 @@ import {Container, Grid, TextField, InputBase, Divider} from "@material-ui/core"
 import gateways from "./gateways";
 import Select from 'react-select';
 import {Logo} from "./Logo";
-import './Player.css';
+import './PlayerEvolution.css';
 import {Overall} from './Overall'
 import {Color} from './Color'
 import {BackgroundImage} from "./BackgroundImage";
 
 
-export class Player extends React.Component {
+export class PlayerEvolution extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
