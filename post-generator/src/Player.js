@@ -83,30 +83,32 @@ export class Player extends React.Component {
         })
         return (
             <Container fixed >
-                <h2>Player Evolution</h2>
-                <Divider />
-                <br/>
-                <Grid container className='config' spacing={2}>
-                    <Grid item xs={6} >
-                        <div style={{'display': 'flex'}}>
-                            <label>Player</label>
-                            <Select
-                                options={this.state.players}
-                                isLoading={this.state.isLoading}
-                                onChange={this.changePlayer}
+                <Grid style={{'background': 'white'}}>
+                    <h2>Player Evolution</h2>
+                    <Divider />
+                    <br/>
+                    <Grid container className='config' spacing={2}>
+                        <Grid item xs={6} >
+                            <div style={{'display': 'flex'}}>
+                                <label>Player</label>
+                                <Select
+                                    options={this.state.players}
+                                    isLoading={this.state.isLoading}
+                                    onChange={this.changePlayer}
+                                />
+                            </div>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <div style={{'display': 'flex'}}>
+                                <label>Color</label>
+                                <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <BackgroundImage
+                                className="background-image"
                             />
-                        </div>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <div style={{'display': 'flex'}}>
-                            <label>Color</label>
-                            <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
-                        </div>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <BackgroundImage
-                            className="background-image"
-                        />
+                        </Grid>
                     </Grid>
                 </Grid>
                 <br/>

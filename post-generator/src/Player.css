@@ -13,8 +13,9 @@ body {
 
 .post {
     display: flex;
-    padding-left: 80px;
-    position: absolute;
+    margin: 50px auto 50px auto;
+    width: 500px;
+    height: 500px;
 }
 
 .chart {
