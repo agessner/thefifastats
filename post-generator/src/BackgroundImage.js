@@ -6,12 +6,12 @@ export class BackgroundImage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            backgroundImageUrl: '',
-            backgroundImageSize: 300,
-            backgroundImageWidth: 500,
-            backgroundImageHeight: 500,
-            backgroundImageTop: 350,
-            backgroundImageLeft: 100,
+            backgroundImageUrl: 'https://bolavip.com/__export/1586395840559/sites/bolavip/img/2020/04/08/whatsapp_image_2020-04-08_at_22_19_14_crop1586395840052.jpeg_554688468.jpeg',
+            backgroundImageSize: 980,
+            backgroundImageWidth: 560,
+            backgroundImageHeight: 520,
+            backgroundImageTop: 260,
+            backgroundImageLeft: 360,
         }
         this.changeBackgroundImageUrl = this.changeBackgroundImageUrl.bind(this)
         this.changeBackgroundImageSize = this.changeBackgroundImageSize.bind(this)
@@ -56,7 +56,7 @@ export class BackgroundImage extends React.Component {
                         Size
                     </Typography>
                     <Slider
-                        defaultValue={500}
+                        defaultValue={980}
                         aria-labelledby="size"
                         min={0}
                         max={2000}
@@ -70,7 +70,7 @@ export class BackgroundImage extends React.Component {
                         Width
                     </Typography>
                     <Slider
-                        defaultValue={500}
+                        defaultValue={560}
                         aria-labelledby="width"
                         min={0}
                         max={2000}
@@ -85,7 +85,7 @@ export class BackgroundImage extends React.Component {
                     </Typography>
                     <Slider
                         marks
-                        defaultValue={500}
+                        defaultValue={520}
                         aria-labelledby="height"
                         min={0}
                         max={2000}
@@ -100,7 +100,7 @@ export class BackgroundImage extends React.Component {
                     </Typography>
                     <Slider
                         marks
-                        defaultValue={500}
+                        defaultValue={260}
                         aria-labelledby="top"
                         min={0}
                         max={2000}
@@ -115,7 +115,7 @@ export class BackgroundImage extends React.Component {
                     </Typography>
                     <Slider
                         marks
-                        defaultValue={500}
+                        defaultValue={360}
                         aria-labelledby="left"
                         min={0}
                         max={2000}

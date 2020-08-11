@@ -140,7 +140,7 @@ More players and more stats to come!`
                     </Grid>
                     <Grid item xs={4}>
                         <Grid item xs={12}><Tags/></Grid>
-                        <Grid item xs={12}><textarea value={this.state.postDescription} rows={12}/></Grid>
+                        <Grid item xs={12}><textarea value={this.state.postDescription} rows={20} cols={33}/></Grid>
                     </Grid>
                 </Grid>
             </Container>
