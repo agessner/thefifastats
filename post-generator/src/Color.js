@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {CompactPicker} from 'react-color'
+import {ChromePicker} from 'react-color'
 import {Button} from "@material-ui/core";
 
 export class Color extends React.Component {
@@ -33,8 +33,8 @@ export class Color extends React.Component {
                     }}
                 />
                 {this.state.pickerVisible && (
-                    <div style={{position: 'absolute'}}>
-                        <CompactPicker
+                    <div style={{position: 'absolute', zIndex: 1}}>
+                        <ChromePicker
                             color={this.state.color}
                             onChangeComplete={this.handleColorChange}
                         />
