@@ -8,6 +8,7 @@ import {Overall} from './Overall'
 import {Color} from './Color'
 import {BackgroundImage} from "./BackgroundImage";
 import Tags from "./Tags";
+import {ConfigPanel} from "./ConfigPanel";
 
 
 export class PlayerEvolution extends React.Component {
@@ -101,30 +102,22 @@ More players and more stats to come!`
         })
         return (
             <Container fixed >
-                <Grid style={{'background': 'white'}}>
-                    <h2>Player Evolution</h2>
-                    <Divider />
-                    <br/>
-                    <Grid container className='config' spacing={2}>
-                            <Grid item xs={3} >
-                                <Select
-                                    options={this.state.players}
-                                    isLoading={this.state.isLoading}
-                                    onChange={this.changePlayer}
-                                    placeholder='Select a player'
-                                />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
-                            </Grid>
-                        <Grid item xs={12}>
-                            <BackgroundImage className="background-image"/>
-                        </Grid>
+                <ConfigPanel title={"Player Evolution"}>
+                    <Grid item xs={3} >
+                        <Select
+                            options={this.state.players}
+                            isLoading={this.state.isLoading}
+                            onChange={this.changePlayer}
+                            placeholder='Select a player'
+                        />
                     </Grid>
-                </Grid>
-                <br/>
-                <Divider />
-                <br/>
+                    <Grid item xs={3}>
+                        <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <BackgroundImage className="background-image"/>
+                    </Grid>
+                </ConfigPanel>
                 <Grid container>
                     <Grid item xs={8}>
                         <div id="imgPost" className="post">

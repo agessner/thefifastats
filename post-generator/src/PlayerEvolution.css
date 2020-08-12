@@ -7,10 +7,6 @@ body {
     font-family: prompt-regular;
 }
 
-.config {
-    margin-bottom: 55px;
-}
-
 .post {
     display: flex;
     margin: 0px auto 50px auto;
