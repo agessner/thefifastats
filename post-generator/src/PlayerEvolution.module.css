@@ -25,7 +25,7 @@ body {
     margin-left: -40px;
 }
 
-.background-image {
+.backgroundImage {
     content: "";
     opacity: 0.5;
     bottom: 0;
@@ -40,30 +40,30 @@ body {
     width: 25px;
 }
 
-.fifa-version {
+.fifaVersion {
     display: flex;
     flex-direction: column-reverse;
 }
 
-.fifa-version img {
+.fifaVersion img {
     width: 54px;
     transform: rotate(-90deg);
     margin: 0px 0px 27px -35px;
     opacity: 0.9;
 }
 
-.team-logo img {
+.teamLogo img {
     width: 25px;
     top: -28px;
     position: relative;
 }
 
-.bar-top {
+.barTop {
     display: flex;
     flex-direction: column;
 }
 
-.tfs-logo {
+.tfsLogo {
     width: 35px;
     height: 35px;
     display: flex;
@@ -89,12 +89,7 @@ body {
     padding-left: 4px;
 }
 
-.title .player-name-text {
+.title .playerNameText {
     background: #23337c;
     padding-left: 5px;
-}
-
-.overall {
-    position: relative;
-    top: -32px;
 }

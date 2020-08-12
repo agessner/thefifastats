@@ -1,9 +1,9 @@
 import React from 'react';
-import {Container, Grid, Divider} from "@material-ui/core";
+import {Container, Grid} from "@material-ui/core";
 import gateways from "./gateways";
 import Select from 'react-select';
 import {Logo} from "./Logo";
-import './PlayerEvolution.css';
+import styles from './PlayerEvolution.module.css';
 import {Overall} from './Overall'
 import {Color} from './Color'
 import {BackgroundImage} from "./BackgroundImage";
@@ -85,16 +85,16 @@ More players and more stats to come!`
             }
             const fifaLogoSrc = require(`./fifa-logos/fifa-${version.version_name}.jpg`)
             playerVersions.push(
-                <div className='bar' id={id} style={style}>
-                    <div className='bar-top'>
-                        <div className='team-logo'>
+                <div className={styles.bar} id={id} style={style}>
+                    <div className={styles.barTop}>
+                        <div className={styles.teamLogo}>
                             <img referrerPolicy="no-referrer" src={version.team_image_url} alt='' />
                         </div>
-                        <div className='overall'>
+                        <div className={styles.overall}>
                             <Overall value={version.overall_rating} />
                         </div>
                     </div>
-                    <div className='fifa-version'>
+                    <div className={styles.fifaVersion}>
                         <img src={fifaLogoSrc}/>
                     </div>
                 </div>
@@ -115,18 +115,18 @@ More players and more stats to come!`
                         <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <BackgroundImage className="background-image"/>
+                        <BackgroundImage className={styles.backgroundImage}/>
                     </Grid>
                 </ConfigPanel>
                 <Grid container>
                     <Grid item xs={8}>
-                        <div id="imgPost" className="post">
-                            <Logo/>
-                            <div className="title">
-                                <div className="player-name-text" style={{'background-color': this.state.selectedColor}}>{this.state.selectedPlayer.name}</div>
-                                <div className="text">FIFA Evolution</div>
+                        <div id="imgPost" className={styles.post}>
+                            <Logo classStyleName={styles.tfsLogo}/>
+                            <div className={styles.title}>
+                                <div className={styles.playerNameText} style={{'background-color': this.state.selectedColor}}>{this.state.selectedPlayer.name}</div>
+                                <div className={styles.text}>FIFA Evolution</div>
                             </div>
-                            <div className="chart" style={{'background-color': this.state.selectedColorAlpha}}>
+                            <div className={styles.chart} style={{'background-color': this.state.selectedColorAlpha}}>
                                 {playerVersions}
                             </div>
                         </div>

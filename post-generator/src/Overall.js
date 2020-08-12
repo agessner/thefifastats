@@ -1,26 +1,27 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import './Overall.css'
+import styles from './Overall.module.css';
+import classnames from 'classnames';
 
 export class Overall extends React.Component {
     getRatingClass(overall) {
         if (parseInt(overall) < 61) {
-            return 'lower-than-61'
+            return styles.lowerThen61
         }
 
         if (parseInt(overall) < 71) {
-            return 'lower-than-71'
+            return styles.lowerThen71
         }
 
         if (parseInt(overall) < 81) {
-            return 'lower-than-81'
+            return styles.lowerThen81
         }
-        return 'lower-than-99'
+        return styles.lowerThen99
     }
 
     render() {
         return (
-            <div className={this.getRatingClass(this.props.value)}>
+            <div className={classnames(this.getRatingClass(this.props.value), styles.overall)}>
                 {this.props.value}
             </div>
         )

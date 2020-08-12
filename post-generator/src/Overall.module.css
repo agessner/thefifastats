@@ -2,20 +2,22 @@
     color: white;
     width: 25px;
     text-align: center;
+    position: relative;
+    top: -32px;
 }
 
-.lower-than-99 {
+.lowerThen99 {
     background-color: green;
 }
 
-.lower-than-81 {
+.lowerThen81 {
     background-color: #9bbf30;
 }
 
-.lower-than-71 {
+.lowerThen71 {
     background-color: #ffc940;
 }
 
-.lower-than-61 {
+.lowerThen61 {
     background-color: #e77e23;
 }
