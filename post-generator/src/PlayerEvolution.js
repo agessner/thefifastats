@@ -7,8 +7,8 @@ import styles from './PlayerEvolution.module.css';
 import {Overall} from './Overall'
 import {Color} from './Color'
 import {BackgroundImage} from "./BackgroundImage";
-import Tags from "./Tags";
 import {ConfigPanel} from "./ConfigPanel";
+import Post from "./Post";
 
 
 export class PlayerEvolution extends React.Component {
@@ -125,24 +125,16 @@ More players and more stats to come!`
                         />
                     </Grid>
                 </ConfigPanel>
-                <Grid container>
-                    <Grid item xs={8}>
-                        <div id="imgPost" className={styles.post}>
-                            <Logo classStyleName={styles.tfsLogo}/>
-                            <div className={styles.title}>
-                                <div className={styles.playerNameText} style={{'background-color': this.state.selectedColor}}>{this.state.selectedPlayer.name}</div>
-                                <div className={styles.text}>FIFA Evolution</div>
-                            </div>
-                            <div className={styles.chart} style={{'background-color': this.state.selectedColorAlpha}}>
-                                {playerVersions}
-                            </div>
-                        </div>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Grid item xs={12}><Tags/></Grid>
-                        <Grid item xs={12}><textarea value={this.state.postDescription} rows={20} cols={33}/></Grid>
-                    </Grid>
-                </Grid>
+                <Post postDescription={this.state.postDescription}>
+                    <Logo classStyleName={styles.tfsLogo}/>
+                    <div className={styles.title}>
+                        <div className={styles.playerNameText} style={{'background-color': this.state.selectedColor}}>{this.state.selectedPlayer.name}</div>
+                        <div className={styles.text}>FIFA Evolution</div>
+                    </div>
+                    <div className={styles.chart} style={{'background-color': this.state.selectedColorAlpha}}>
+                        {playerVersions}
+                    </div>
+                </Post>
             </Container>
 
         )
