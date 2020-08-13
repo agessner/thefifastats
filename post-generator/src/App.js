@@ -7,6 +7,7 @@ import {Home} from "./Home";
 import ListItemText from '@material-ui/core/ListItemText';
 import {Hidden, List, ListItem, ListItemIcon, Drawer, AppBar, Divider} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
+import {Top3Players} from "./Top3Players";
 
 function ListItemLink(props) {
   const { icon, primary, to } = props;
@@ -87,7 +88,12 @@ function App() {
             <div className={classes.toolbar} />
             <Divider />
             <List aria-label="main mailbox folders">
-                {[['home', 'Home'], ['player-evolution', 'Player Evolution']].map((text, index) => (
+                {
+                    [
+                        ['home', 'Home'],
+                        ['player-evolution', 'Player Evolution'],
+                        ['top-3-players', 'Top 3 Players']
+                    ].map((text, index) => (
                     <ListItemLink to={`/${text[0]}`} primary={text[1]} />
                 ))}
             </List>
@@ -112,6 +118,7 @@ function App() {
                         </Hidden>
                     </nav>
                     <Switch>
+                            <Route path="/top-3-players"><Top3Players/></Route>
                             <Route path="/player-evolution"><PlayerEvolution/></Route>
                             <Route path="/"><Home/></Route>
                     </Switch>
