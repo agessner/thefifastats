@@ -1,9 +1,7 @@
 .overall {
     color: white;
-    width: 25px;
     text-align: center;
     position: relative;
-    top: -32px;
 }
 
 .lowerThen99 {

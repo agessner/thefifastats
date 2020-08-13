@@ -21,7 +21,7 @@ export class Overall extends React.Component {
 
     render() {
         return (
-            <div className={classnames(this.getRatingClass(this.props.value), styles.overall)}>
+            <div className={classnames(this.getRatingClass(this.props.value), styles.overall, this.props.className)}>
                 {this.props.value}
             </div>
         )
@@ -29,5 +29,6 @@ export class Overall extends React.Component {
 }
 
 Overall.propTypes = {
-    value: PropTypes.string.isRequired
+    value: PropTypes.string.isRequired,
+    className: PropTypes.string
 }

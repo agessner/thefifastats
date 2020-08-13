@@ -91,7 +91,7 @@ More players and more stats to come!`
                             <img referrerPolicy="no-referrer" src={version.team_image_url} alt='' />
                         </div>
                         <div className={styles.overall}>
-                            <Overall value={version.overall_rating} />
+                            <Overall value={version.overall_rating} className={styles.overall} />
                         </div>
                     </div>
                     <div className={styles.fifaVersion}>
