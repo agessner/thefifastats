@@ -25,15 +25,6 @@ body {
     margin-left: -40px;
 }
 
-.backgroundImage {
-    content: "";
-    opacity: 0.5;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-}
-
 .bar {
     background-color: #23327d;
     display: flex;

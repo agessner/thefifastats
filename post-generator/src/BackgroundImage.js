@@ -1,17 +1,18 @@
 import {Grid, Slider, TextField, Typography} from "@material-ui/core"
 import React from "react"
 import PropTypes from 'prop-types'
+import styles from './BackgroundImage.module.css'
 
 export class BackgroundImage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            backgroundImageUrl: 'https://bolavip.com/__export/1586395840559/sites/bolavip/img/2020/04/08/whatsapp_image_2020-04-08_at_22_19_14_crop1586395840052.jpeg_554688468.jpeg',
-            backgroundImageSize: 980,
-            backgroundImageWidth: 560,
-            backgroundImageHeight: 520,
-            backgroundImageTop: 260,
-            backgroundImageLeft: 360,
+            backgroundImageUrl: props.defaultImageUrl,
+            backgroundImageSize: props.defaultSize,
+            backgroundImageWidth: props.defaultWidth,
+            backgroundImageHeight: props.defaultHeight,
+            backgroundImageTop: props.defaultTop,
+            backgroundImageLeft: props.defaultLeft
         }
         this.changeBackgroundImageUrl = this.changeBackgroundImageUrl.bind(this)
         this.changeBackgroundImageSize = this.changeBackgroundImageSize.bind(this)
@@ -56,7 +57,7 @@ export class BackgroundImage extends React.Component {
                         Size
                     </Typography>
                     <Slider
-                        defaultValue={980}
+                        defaultValue={this.props.defaultSize}
                         aria-labelledby="size"
                         min={0}
                         max={2000}
@@ -70,7 +71,7 @@ export class BackgroundImage extends React.Component {
                         Width
                     </Typography>
                     <Slider
-                        defaultValue={560}
+                        defaultValue={this.props.defaultWidth}
                         aria-labelledby="width"
                         min={0}
                         max={2000}
@@ -85,7 +86,7 @@ export class BackgroundImage extends React.Component {
                     </Typography>
                     <Slider
                         marks
-                        defaultValue={520}
+                        defaultValue={this.props.defaultHeight}
                         aria-labelledby="height"
                         min={0}
                         max={2000}
@@ -100,7 +101,7 @@ export class BackgroundImage extends React.Component {
                     </Typography>
                     <Slider
                         marks
-                        defaultValue={260}
+                        defaultValue={this.props.defaultTop}
                         aria-labelledby="top"
                         min={0}
                         max={2000}
@@ -115,7 +116,7 @@ export class BackgroundImage extends React.Component {
                     </Typography>
                     <Slider
                         marks
-                        defaultValue={360}
+                        defaultValue={this.props.defaultLeft}
                         aria-labelledby="left"
                         min={0}
                         max={2000}
@@ -126,7 +127,7 @@ export class BackgroundImage extends React.Component {
                 </Grid>
             </Grid>,
             <div
-                className={this.props.className}
+                className={styles.backgroundImage}
                 style={
                     {
                         'background': `url(${this.state.backgroundImageUrl})`,
@@ -143,5 +144,10 @@ export class BackgroundImage extends React.Component {
 }
 
 BackgroundImage.propTypes = {
-    className: PropTypes.string.isRequired
+    defaultImageUrl: PropTypes.string,
+    defaultWidth: PropTypes.number,
+    defaultHeight: PropTypes.number,
+    defaultTop: PropTypes.number,
+    defaultLeft: PropTypes.number,
+    defaultSize: PropTypes.number
 }

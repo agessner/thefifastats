@@ -115,7 +115,14 @@ More players and more stats to come!`
                         <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <BackgroundImage className={styles.backgroundImage}/>
+                        <BackgroundImage
+                            defaultImageUrl={'https://bolavip.com/__export/1586395840559/sites/bolavip/img/2020/04/08/whatsapp_image_2020-04-08_at_22_19_14_crop1586395840052.jpeg_554688468.jpeg'}
+                            defaultWidth={560}
+                            defaultHeight={520}
+                            defaultTop={260}
+                            defaultLeft={360}
+                            defaultSize={900}
+                        />
                     </Grid>
                 </ConfigPanel>
                 <Grid container>
