@@ -2,13 +2,13 @@ import React from 'react';
 import {Container, Grid} from "@material-ui/core";
 import gateways from "./gateways";
 import Select from 'react-select';
-import {Logo} from "./Logo";
+import {Logo} from "./components/Logo";
 import styles from './PlayerEvolution.module.css';
-import {Overall} from './Overall'
-import {Color} from './Color'
-import {BackgroundImage} from "./BackgroundImage";
-import {ConfigPanel} from "./ConfigPanel";
-import Post from "./Post";
+import {Overall} from './components/Overall'
+import {Color} from './components/Color'
+import {BackgroundImage} from "./components/BackgroundImage";
+import {ConfigPanel} from "./components/ConfigPanel";
+import Post from "./components/Post";
 
 
 export class PlayerEvolution extends React.Component {

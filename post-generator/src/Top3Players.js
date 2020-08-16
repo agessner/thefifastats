@@ -2,14 +2,14 @@ import React from 'react';
 import {Container, Grid} from "@material-ui/core";
 import gateways from "./gateways";
 import Select from 'react-select';
-import {Logo} from "./Logo";
+import {Logo} from "./components/Logo";
 import styles from './Top3Players.module.css';
-import {Overall} from './Overall'
-import {Color} from './Color'
-import {BackgroundImage} from "./BackgroundImage";
+import {Overall} from './components/Overall'
+import {Color} from './components/Color'
+import {BackgroundImage} from "./components/BackgroundImage";
 import {logos} from "./fifa-logos/complete";
-import {ConfigPanel} from "./ConfigPanel";
-import Post from "./Post";
+import {ConfigPanel} from "./components/ConfigPanel";
+import Post from "./components/Post";
 
 
 export class Top3Players extends React.Component {
