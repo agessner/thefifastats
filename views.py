@@ -61,10 +61,11 @@ def get_top_players_comparasion(fifa_version, position):
     """, player_position=position, fifa_version=fifa_version.replace('FIFA ', ''))
 
 
-@app.route('/best-starting-team/<team_name>')
+@app.route('/best/teams/<team_name>/')
 def get_best_starting_team(team_name):
     return _get_bigquery_result("""
         SELECT 
+            CONCAT(id, version_name) AS id,
             name,
             team_position AS player_position,
             version_name,
@@ -77,10 +78,11 @@ def get_best_starting_team(team_name):
     """, team_name=team_name)
 
 
-@app.route('/worst-starting-team/<team_name>')
+@app.route('/worst/teams/<team_name>/')
 def get_worst_starting_team(team_name):
     return _get_bigquery_result("""
-        SELECT 
+        SELECT
+            CONCAT(id, version_name) AS id, 
             name,
             team_position AS player_position,
             version_name,
@@ -93,10 +95,11 @@ def get_worst_starting_team(team_name):
     """, team_name=team_name)
 
 
-@app.route('/national-teams/<country_name>')
+@app.route('/best/national-teams/<country_name>/')
 def get_national_team(country_name):
     return _get_bigquery_result("""
         SELECT 
+            CONCAT(id, version_name) AS id,
             name,
             player_position,
             version_name,
