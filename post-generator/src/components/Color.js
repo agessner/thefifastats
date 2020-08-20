@@ -20,6 +20,8 @@ export class Color extends React.Component {
         this.setState({pickerVisible: false})
     }
 
+    static getRgbaText(rgba) { return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})` }
+
     render() {
         const onTogglePicker = () => this.setState({pickerVisible: !this.state.pickerVisible})
 
