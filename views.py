@@ -30,6 +30,7 @@ def get_versions():
 
 
 @app.route('/teams/')
+@app.route('/potential-teams/')
 def get_teams():
     return _get_bigquery_result(
         """SELECT DISTINCT team_name FROM `analysis.players`"""
@@ -112,15 +113,17 @@ def get_national_team(country_name):
     """, country_name=country_name)
 
 
-@app.route('/potential-teams/<team_name>')
+@app.route('/best/potential-teams/<team_name>/')
 def get_potential_team(team_name):
     return _get_bigquery_result("""
         SELECT 
             player_position,
             name, 
-            potential_overall_rating,
+            potential_overall_rating AS overall_rating,
+            version_name,
             age,
-            image_url
+            image_url,
+            team_image_url
         FROM `analysis.players` players 
         LEFT JOIN `analysis.positions` position 
         ON position.position = players.player_position 

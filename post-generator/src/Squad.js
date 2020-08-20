@@ -1,10 +1,8 @@
 import React from 'react';
 import Post from "./components/Post";
 import {ConfigPanel} from "./components/ConfigPanel";
-import {Container, Grid, Input} from "@material-ui/core";
-import MenuItem from '@material-ui/core/MenuItem';
+import {Container, Grid} from "@material-ui/core";
 import styles from "./Squad.module.css";
-import classnames from 'classnames';
 import Select from "react-select";
 import gateways from "./gateways";
 import {Color} from "./components/Color";
@@ -20,6 +18,9 @@ const titlesByPostType = {
     },
     'national-teams': {
         'best': 'BEST OVERALL XI FROM FIFA 07-20'
+    },
+    'potential-teams': {
+        'best': 'BEST POTENTIAL XI FROM FIFA 20'
     }
 }
 
@@ -79,7 +80,8 @@ export default class Squad extends React.Component {
     getPostTypes() {
         return [
             {value: 'teams', label: 'Team'},
-            {value: 'national-teams', label: 'National Team'}
+            {value: 'national-teams', label: 'National Team'},
+            {value: 'potential-teams', label: 'Potential Team'}
         ]
     }
 
