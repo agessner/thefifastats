@@ -1,5 +1,5 @@
 .field {
-    background-image: url("static/campo-de-futebol.png");
+    background-image: url("../static/campo-de-futebol.png");
     display: flex;
     justify-content: center;
     width: 500px;
@@ -16,7 +16,7 @@
 
 .playerImg {
     display: flex;
-    width: 58px;
+    width: 37px;
 }
 
 .playerImgLabel {
@@ -28,7 +28,7 @@
 .name {
     justify-content: center;
     display: flex;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .nameLabel {
@@ -50,6 +50,12 @@
     background: white;
     width: -webkit-fill-available;
     justify-content: center;
+    align-items: center;
+}
+
+.fifaVersion img {
+    width: 50px;
+    height: 16px;
 }
 
 .fifaVersionLabel img {
@@ -78,7 +84,7 @@
     color: white;
     height: fit-content;
     margin: 55px auto auto 390px;
-    width: 8%;
+    width: 110px;
     display: flex;
     align-items: center;
     flex-direction: column;
