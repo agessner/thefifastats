@@ -27,6 +27,10 @@ function loadTeamPlayers(worstOrBest, postType, team) {
     return fetch(`http://127.0.0.1:5000/${url}/`).then(res => res.json()).then(result => result['result'])
 }
 
+function loadCombinedTeamPlayers(team1, team2) {
+    return fetch(`http://127.0.0.1:5000/combined-teams/${team1}/${team2}`).then(res => res.json()).then(result => result['result'])
+}
+
 export default {
     loadPlayers,
     getPlayer,
@@ -34,5 +38,6 @@ export default {
     loadPositions,
     getTopPlayersAtVersionAndPosition,
     loadTeams,
-    loadTeamPlayers
+    loadTeamPlayers,
+    loadCombinedTeamPlayers
 }

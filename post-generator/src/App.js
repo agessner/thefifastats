@@ -8,7 +8,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import {Hidden, List, ListItem, ListItemIcon, Drawer, AppBar, Divider} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {Top3Players} from "./Top3Players";
-import Squad from "./Squad";
+import Squads from "./Squads";
+import CombinedSquad from "./CombinedSquad";
 
 function ListItemLink(props) {
   const { icon, primary, to } = props;
@@ -94,7 +95,8 @@ function App() {
                         ['home', 'Home'],
                         ['player-evolution', 'Player Evolution'],
                         ['top-3-players', 'Top 3 Players'],
-                        ['squad', 'Squad']
+                        ['squad', 'Squad'],
+                        ['combined-squad', 'Combined Squad']
                     ].map((text, index) => (
                     <ListItemLink to={`/${text[0]}`} primary={text[1]} />
                 ))}
@@ -122,7 +124,8 @@ function App() {
                     <Switch>
                             <Route path="/top-3-players"><Top3Players/></Route>
                             <Route path="/player-evolution"><PlayerEvolution/></Route>
-                            <Route path="/squad"><Squad/></Route>
+                            <Route path="/squad"><Squads/></Route>
+                            <Route path="/combined-squad"><CombinedSquad/></Route>
                             <Route path="/"><Home/></Route>
                     </Switch>
                 </Router>

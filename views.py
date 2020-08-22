@@ -79,6 +79,23 @@ def get_best_starting_team(team_name):
     """, team_name=team_name)
 
 
+@app.route('/combined-teams/<team_1>/<team_2>/')
+def get_best_combined_starting_team(team_1, team_2):
+    return _get_bigquery_result("""
+        SELECT 
+            CONCAT(id, version_name) AS id,
+            name,
+            team_position AS player_position,
+            version_name,
+            team_image_url AS image_url, 
+            overall_rating,
+            team_image_url 
+        FROM `analysis.best_starting_team` 
+        WHERE team_name IN ('{team_1}' , '{team_2}' )
+        ORDER BY position_order
+    """, team_1=team_1, team_2=team_2)
+
+
 @app.route('/worst/teams/<team_name>/')
 def get_worst_starting_team(team_name):
     return _get_bigquery_result("""
