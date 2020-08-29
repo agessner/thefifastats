@@ -1,34 +1,14 @@
-function loadPlayers() {
-    return fetch(`http://127.0.0.1:5000/players/`).then(res => res.json()).then(result => result['result'])
-}
+const loadPlayers = () => get(`players/`)
+const getPlayer = playerId => get(`player/${playerId}`)
+const loadVersions = () => get() (`versions/`)
+const loadPositions = () => get() (`player-positions/`)
+const getTopPlayersAtVersionAndPosition = (version, playerPosition, field) => get(`${version}/${playerPosition}/${field}`)
+const loadTeams = url => get(`${url}/`)
+const loadTeamPlayers = (worstOrBest, postType, team) => get(`${worstOrBest}/${postType}/${team}/`)
+const loadCombinedTeamPlayers = (team1, team2) => get(`${team1}/${team2}`)
 
-function getPlayer(playerId) {
-    return fetch(`http://127.0.0.1:5000/player/${playerId}`).then(res => res.json()).then(result => result['result'])
-}
-
-function loadVersions() {
-    return fetch(`http://127.0.0.1:5000/versions/`).then(res => res.json()).then(result => result['result'])
-}
-
-function loadPositions() {
-    return fetch(`http://127.0.0.1:5000/player-positions/`).then(res => res.json()).then(result => result['result'])
-}
-
-function getTopPlayersAtVersionAndPosition(version, playerPosition) {
-    return fetch(`http://127.0.0.1:5000/comparasion/${version}/${playerPosition}`).then(res => res.json()).then(result => result['result'])
-}
-
-function loadTeams(url) {
-    return fetch(`http://127.0.0.1:5000/${url}/`).then(res => res.json()).then(result => result['result'])
-}
-
-function loadTeamPlayers(worstOrBest, postType, team) {
-    const url = `${worstOrBest}/${postType}/${team}`
-    return fetch(`http://127.0.0.1:5000/${url}/`).then(res => res.json()).then(result => result['result'])
-}
-
-function loadCombinedTeamPlayers(team1, team2) {
-    return fetch(`http://127.0.0.1:5000/combined-teams/${team1}/${team2}`).then(res => res.json()).then(result => result['result'])
+function get(url) {
+    return fetch(`http://127.0.0.1:5000/${url}`).then(res => res.json()).then(result => result['result'])
 }
 
 export default {
