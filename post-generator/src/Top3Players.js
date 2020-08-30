@@ -12,6 +12,11 @@ import {ConfigPanel} from "./components/ConfigPanel";
 import Post from "./components/Post";
 
 
+const fields = [
+    'overall_rating',
+    'potential_overall_rating'
+]
+
 export class Top3Players extends React.Component {
     constructor(props) {
         super(props);
@@ -22,6 +27,7 @@ export class Top3Players extends React.Component {
             positions: [],
             isLoadingPositions: true,
             selectedPosition: '',
+            selectedField: '',
             topPlayers: [],
             selectedColor: 'rgb(51,66,81)',
             selectedColorAlpha: 'rgba(51,66,81,0.25)',
@@ -31,6 +37,7 @@ export class Top3Players extends React.Component {
         this.changeVersion = this.changeVersion.bind(this);
         this.changePosition = this.changePosition.bind(this);
         this.changeColor = this.changeColor.bind(this);
+        this.changeField = this.changeField.bind(this);
     }
 
     componentDidMount() {
@@ -60,19 +67,24 @@ export class Top3Players extends React.Component {
 
     changeVersion(selectedOption) {
         this.setState({selectedVersion: selectedOption.value})
-        this.updateTopPlayers(selectedOption.value, this.state.selectedPosition);
+        this.updateTopPlayers(selectedOption.value, this.state.selectedPosition, this.state.selectedField);
     }
 
     changePosition(selectedOption) {
         this.setState({selectedPosition: selectedOption.value})
-        this.updateTopPlayers(this.state.selectedVersion, selectedOption.value);
+        this.updateTopPlayers(this.state.selectedVersion, selectedOption.value, this.state.selectedField);
     }
 
-    updateTopPlayers(version, position) {
+    changeField(selectedOption) {
+        this.setState({selectedField: selectedOption.value})
+        this.updateTopPlayers(this.state.selectedVersion, this.state.selectedPosition, selectedOption.value);
+    }
+
+    updateTopPlayers(version, position, field) {
         if (!version || !position) {
             return
         }
-        gateways.getTopPlayersAtVersionAndPosition(version, position).then(playerVersions => {
+        gateways.getTopPlayersAtVersionAndPosition(version, position, field).then(playerVersions => {
             this.setState({
                 topPlayers: playerVersions
             })
@@ -110,7 +122,7 @@ More players and more stats to come!`
                     <div className={styles.teamLogo}>
                         <img referrerPolicy="no-referrer" src={player.team_image_url} alt='' />
                     </div>
-                    <Overall value={player.overall_rating} className={styles.overall} />
+                    <Overall value={player.field} className={styles.overall} />
                     <div className={styles.name}>{player.name}</div>
                 </div>
             )
@@ -126,7 +138,6 @@ More players and more stats to come!`
                             isLoading={this.state.isLoadingVersions}
                             onChange={this.changeVersion}
                             placeholder='Select a version'
-                            style={{width: '200px'}}
                         />
                     </Grid>
                     <Grid item xs={3} >
@@ -135,10 +146,16 @@ More players and more stats to come!`
                             isLoading={this.state.isLoadingPositions}
                             onChange={this.changePosition}
                             placeholder='Select a position'
-                            style={{width: '200px'}}
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={3} >
+                        <Select
+                            options={fields.map(field => { return {'label': field, 'value': field} })}
+                            onChange={this.changeField}
+                            placeholder='Select field'
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
                         <Color defaultColor={this.state.selectedColor} handleColorChange={this.changeColor}/>
                     </Grid>
                     <Grid item xs={12}>
