@@ -6,6 +6,16 @@ import styles from './Post.module.css';
 import { TextareaAutosize } from '@material-ui/core';
 
 export default class Post extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {...props}
+    }
+
+
+    componentWillReceiveProps({postDescription}, nextContent) {
+        this.setState({...this.state, postDescription})
+    }
+
     render() {
         return (
             <Grid container spacing={3}>
@@ -20,8 +30,7 @@ export default class Post extends React.Component {
                 <Grid item xs={3}>
                     <Grid item xs={12}><Tags/></Grid>
                     <Grid item xs={12}>
-                        <TextareaAutosize rows={20} cols={33}>
-                            {this.props.postDescription}
+                        <TextareaAutosize rows={20} cols={33} defaultValue={this.state.postDescription}>
                         </TextareaAutosize>
                     </Grid>
                 </Grid>
