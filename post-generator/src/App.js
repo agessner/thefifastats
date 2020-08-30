@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Top3Players} from "./Top3Players";
 import Squads from "./Squads";
 import CombinedSquad from "./CombinedSquad";
+import VersionSquad from "./VersionSquad";
 
 function ListItemLink(props) {
   const { icon, primary, to } = props;
@@ -96,7 +97,8 @@ function App() {
                         ['player-evolution', 'Player Evolution'],
                         ['top-3-players', 'Top 3 Players'],
                         ['squad', 'Squad'],
-                        ['combined-squad', 'Combined Squad']
+                        ['combined-squad', 'Combined Squad'],
+                        ['version-squad', 'Version Squad']
                     ].map((text, index) => (
                     <ListItemLink to={`/${text[0]}`} primary={text[1]} />
                 ))}
@@ -126,6 +128,7 @@ function App() {
                             <Route path="/player-evolution"><PlayerEvolution/></Route>
                             <Route path="/squad"><Squads/></Route>
                             <Route path="/combined-squad"><CombinedSquad/></Route>
+                            <Route path="/version-squad"><VersionSquad/></Route>
                             <Route path="/"><Home/></Route>
                     </Switch>
                 </Router>
