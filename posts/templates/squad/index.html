@@ -44,7 +44,7 @@
         <div id="imgPost" class="post">
             <div class="title">BEST OVERALL STARTING XI</div>
             <div class="logo">
-                <img src="https://logodownload.org/wp-content/uploads/2017/02/Arsenal-logo-escudo-shield.png">
+                <img referrerpolicy="no-referrer" src="https://logodownload.org/wp-content/uploads/2017/02/Arsenal-logo-escudo-shield.png">
             </div>
             <div class="stats">
                 <div class="avg">
@@ -139,7 +139,7 @@ FOLLOW: @thefifastats
 More teams and more stats to come!`)
              }
 
-             $.get(`http://127.0.0.1:5000/${url}/${teamName}`, data => {
+             $.get(`http://127.0.0.1:5000/${$('.worst-or-best-select option:selected').val()}/${mode}/${teamName}`, data => {
                  $('div.field').empty()
                  $('table').empty()
                  $.each(data['result'], function (index, player) {
@@ -163,7 +163,7 @@ More teams and more stats to come!`)
                      if (player.player_position in divPositions) {
                          $('.player.' + index + '').css('margin', divPositions[player.player_position]['margin'])
                      }
-                     const playerImage = $(`<img src='${player.image_url}' />`)
+                     const playerImage = $(`<img referrerpolicy="no-referrer" src='${player.image_url}' />`)
                      playerImage.on('load', () => {
                          $('.player.' + index + ' > div.player-image').append(playerImage)
                      }).on('error', () => {
