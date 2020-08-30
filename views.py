@@ -51,15 +51,15 @@ def get_player_positions():
     )
 
 
-@app.route('/comparasion/<fifa_version>/<position>')
-def get_top_players_comparasion(fifa_version, position):
+@app.route('/comparasion/<fifa_version>/<position>/<field>')
+def get_top_players_comparasion(fifa_version, position, field):
     return _get_bigquery_result("""
         SELECT 
-            name, team_image_url, overall_rating 
+            name, team_image_url, {field} AS field
         FROM `analysis.players` 
         WHERE player_position = '{player_position}' AND version_name = '{fifa_version}' 
-        ORDER BY overall_rating DESC limit 3
-    """, player_position=position, fifa_version=fifa_version.replace('FIFA ', ''))
+        ORDER BY {field} DESC limit 3
+    """, player_position=position, fifa_version=fifa_version.replace('FIFA ', ''), field=field)
 
 
 @app.route('/best/teams/<team_name>/')
@@ -160,6 +160,23 @@ def get_position_evolution(position):
         WHERE player_position = '{position}' 
         ORDER BY version_name 
     """, position=position)
+
+
+@app.route('/version-team/<version_name>/')
+def get_version_team(version_name):
+    return _get_bigquery_result("""
+        SELECT 
+            CONCAT(id, version_name) AS id,
+            name,
+            team_position AS player_position,
+            version_name,
+            team_image_url AS image_url, 
+            overall_rating,
+            team_image_url  
+        FROM `analysis.best_starting_team_from_version` 
+        WHERE version_name = '{version_name}' 
+        ORDER BY position_order 
+    """, version_name=version_name.replace('FIFA ', ''))
 
 
 def _get_bigquery_result(query, **kwargs):
