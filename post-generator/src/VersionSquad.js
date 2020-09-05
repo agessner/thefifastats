@@ -15,6 +15,7 @@ export default class VersionSquad extends React.Component {
             teamPlayers: [],
             selectedColor: 'rgb(81,51,62)',
             selectedColorAlpha: 'rgba(81,51,62,0.25)',
+            postDescription: ''
         }
         this.changeColor = this.changeColor.bind(this)
         this.changeVersion = this.changeVersion.bind(this)
@@ -39,7 +40,8 @@ export default class VersionSquad extends React.Component {
             selectedOption.value
         ).then(players => this.setState({
             teamPlayers: players.map(player => { return {...player, ...{selected: true}}}),
-            selectedVersion: selectedOption.value
+            selectedVersion: selectedOption.value,
+            postDescription: this.getPostDescription(selectedOption.value)
         }))
     }
 
@@ -49,14 +51,13 @@ export default class VersionSquad extends React.Component {
         this.setState({selectedColorAlpha: Color.getRgbaText(colorAlpha)})
     }
 
-    getPostDescription() {
-        return `${this.state.selectedVersion} Best Starting XI
+    getPostDescription(version) {
+        return `${version} Best Starting XI
 Would make any changes?
 
 How we build this squad 🛠
-- We get the lower and higher overall for each position
+- We get the higher overall for each position
 - Game updates are NOT considered, only the last version of the main release
-- If two players have the same overall, we get the older one (we like nostalgia 👩‍🦳👨‍🦳)
 - SUBs are not considered
 - Finally, the squad formation is decided by the one we like the most 👨‍🎨👩‍🎨
 
@@ -87,7 +88,7 @@ More teams and more stats to come!`
                     selectedColor={this.state.selectedColor}
                     selectedColorAlpha={this.state.selectedColorAlpha}
                     title={`BEST XI FROM FIFA ${this.state.selectedVersion}`}
-                    postDescription={this.getPostDescription()}
+                    postDescription={this.state.postDescription}
                     players={this.state.teamPlayers}
                     showTeamLogo={false}
                 />
