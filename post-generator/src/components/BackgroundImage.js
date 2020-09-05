@@ -47,6 +47,8 @@ export class BackgroundImage extends React.Component {
     }
 
     render() {
+        const linearBackground = this.props.useLinear &&
+            `linear-gradient(to right, rgba(59, 1, 235, 0), rgb(57, 87, 228)),`
         return ([
             <Grid container spacing={2}>
                 <Grid item xs={2}>
@@ -130,7 +132,7 @@ export class BackgroundImage extends React.Component {
                 className={styles.backgroundImage}
                 style={
                     {
-                        'background': `url(${this.state.backgroundImageUrl})`,
+                        'background': `${linearBackground ? linearBackground : ''} url(${this.state.backgroundImageUrl})`,
                         'background-size': this.state.backgroundImageSize,
                         'width': this.state.backgroundImageWidth,
                         'height': this.state.backgroundImageHeight,
@@ -149,5 +151,6 @@ BackgroundImage.propTypes = {
     defaultHeight: PropTypes.number,
     defaultTop: PropTypes.number,
     defaultLeft: PropTypes.number,
-    defaultSize: PropTypes.number
+    defaultSize: PropTypes.number,
+    useLinear: PropTypes.bool
 }
