@@ -62,6 +62,17 @@ def get_top_players_comparasion(fifa_version, position, field):
     """, player_position=position, fifa_version=fifa_version.replace('FIFA ', ''), field=field)
 
 
+@app.route('/comparasion/<fifa_version>/<attribute>')
+def get_top_players_by_attribute(fifa_version, attribute):
+    return _get_bigquery_result("""
+        SELECT 
+            name, team_image_url, {attribute} AS attribute
+        FROM `analysis.players` 
+        WHERE version_name = '{fifa_version}' 
+        ORDER BY {attribute} DESC limit 10
+    """, fifa_version=fifa_version.replace('FIFA ', ''), attribute=attribute)
+
+
 @app.route('/best/teams/<team_name>/')
 def get_best_starting_team(team_name):
     return _get_bigquery_result("""

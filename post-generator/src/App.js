@@ -11,6 +11,7 @@ import {Top3Players} from "./Top3Players";
 import Squads from "./Squads";
 import CombinedSquad from "./CombinedSquad";
 import VersionSquad from "./VersionSquad";
+import {TopPlayers} from "./TopPlayers";
 
 function ListItemLink(props) {
   const { icon, primary, to } = props;
@@ -96,6 +97,7 @@ function App() {
                         ['home', 'Home'],
                         ['player-evolution', 'Player Evolution'],
                         ['top-3-players', 'Top 3 Players'],
+                        ['top-players', 'Top Players'],
                         ['squad', 'Squad'],
                         ['combined-squad', 'Combined Squad'],
                         ['version-squad', 'Version Squad']
@@ -125,6 +127,7 @@ function App() {
                     </nav>
                     <Switch>
                             <Route path="/top-3-players"><Top3Players/></Route>
+                            <Route path="/top-players"><TopPlayers/></Route>
                             <Route path="/player-evolution"><PlayerEvolution/></Route>
                             <Route path="/squad"><Squads/></Route>
                             <Route path="/combined-squad"><CombinedSquad/></Route>
