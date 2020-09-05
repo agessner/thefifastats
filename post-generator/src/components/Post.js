@@ -4,6 +4,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import styles from './Post.module.css';
 import { TextareaAutosize } from '@material-ui/core';
+import classnames from "classnames";
 
 export default class Post extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ export default class Post extends React.Component {
         return (
             <Grid container spacing={3}>
                 <Grid item xs={5}>
-                    <div id="imgPost" className={styles.post}>
+                    <div id="imgPost" className={classnames(styles.post, this.props.className)}>
                         {this.props.children}
                     </div>
                 </Grid>
@@ -41,5 +42,6 @@ export default class Post extends React.Component {
 
 Post.propTypes = {
     postDescription: PropTypes.string.isRequired,
-    options: PropTypes.element
+    options: PropTypes.element,
+    className: PropTypes.string
 }
