@@ -160,28 +160,31 @@ More players and more stats to come!`
                     </Grid>
                     <Grid item xs={12}>
                         <BackgroundImage
-                            defaultImageUrl={'https://i.pinimg.com/originals/cc/d8/70/ccd8703c4525ac592ac3325605916a3f.jpg'}
-                            defaultWidth={540}
-                            defaultHeight={150}
-                            defaultTop={460}
-                            defaultLeft={380}
-                            defaultSize={450}
+                            defaultImageUrl={'https://unity-img.tbxapis.com/v0/images/07fbc223325610b5a5ebdab08c34ff45/content/5f5268e19e282010f8af096f/5fb80d21388e2dac6940c06878e2bf59/img.jpg'}
+                            defaultWidth={300}
+                            defaultHeight={152}
+                            defaultTop={448}
+                            defaultLeft={260}
+                            defaultSize={360}
+                            useLinear={true}
                         />
                         <BackgroundImage
-                            defaultImageUrl={'https://www3.pictures.zimbio.com/gi/Luca+Toni+ACF+Fiorentina+v+AC+Siena+Serie+xcWKT3TCMj9l.jpg'}
-                            defaultWidth={540}
+                            defaultImageUrl={'https://www.hojeemdia.com.br/polopoly_fs/1.617928!/image/image.png_gen/derivatives/landscape_653/image.png'}
+                            defaultWidth={300}
                             defaultHeight={150}
-                            defaultTop={610}
-                            defaultLeft={380}
-                            defaultSize={520}
+                            defaultTop={600}
+                            defaultLeft={260}
+                            defaultSize={400}
+                            useLinear={true}
                         />
                         <BackgroundImage
-                            defaultImageUrl={'https://www4.pictures.gi.zimbio.com/Samuel+Eto+o+Barcelona+v+Malaga+La+Liga+NLJSz1bgYUMl.jpg'}
-                            defaultWidth={540}
+                            defaultImageUrl={'https://s.yimg.com/ny/api/res/1.2/EfJByB.DYbvLXAEa2QodQg--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/https://media.zenfs.com/en/uk.goal.com/007ebeb94d150eb5d0a37b6b5ab6dd0e\n'}
+                            defaultWidth={300}
                             defaultHeight={154}
-                            defaultTop={760}
-                            defaultLeft={380}
-                            defaultSize={450}
+                            defaultTop={750}
+                            defaultLeft={260}
+                            defaultSize={440}
+                            useLinear={true}
                         />
                     </Grid>
                 </ConfigPanel>
