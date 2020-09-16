@@ -1,0 +1,18 @@
+runtime: python38
+
+handlers:
+
+- url: /api/.*
+  script: auto
+
+- url: /(.*\..+)$
+  static_files: post-generator/build/\1
+  upload: post-generator/build/(.*\..+)$
+
+- url: /.*
+  static_files: post-generator/build/index.html
+  upload: post-generator/build/index.html
+
+
+env_variables:
+  FLASK_APP: main.py
