@@ -1,4 +1,4 @@
-const loadPlayers = () => get(`players/`)
+const loadPlayers = (version, team) => get(`players/?version=${version}&team=${team}`)
 const getPlayer = playerId => get(`player/${playerId}`)
 const loadVersions = () => get(`versions/`)
 const loadPositions = () => get(`player-positions/`)
