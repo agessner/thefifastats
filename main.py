@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from google.cloud import bigquery
 
@@ -8,50 +8,53 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/players/')
+@app.route('/api/players/')
 def get_players():
+    print(request.args.get('version'))
+    print(request.args.get('team'))
+
     return _get_bigquery_result("""
         SELECT DISTINCT id, name FROM `analysis.players` WHERE overall_rating >= 75
     """)
 
 
-@app.route('/player/<player_id>')
+@app.route('/api/player/<player_id>')
 def get_player_evolution(player_id):
     return _get_bigquery_result("""
-        SELECT team_image_url, overall_rating, version_name, name FROM `analysis.players` WHERE id = {player_id}
+        SELECT team_image_url, overall_rating, version_name, name FROM `analysis.players` WHERE id = {player_id} ORDER BY version_name
     """, player_id=player_id)
 
 
-@app.route('/versions/')
+@app.route('/api/versions/')
 def get_versions():
     return _get_bigquery_result(
         """SELECT DISTINCT version_name FROM `sofifa.versions`"""
     )
 
 
-@app.route('/teams/')
-@app.route('/potential-teams/')
+@app.route('/api/teams/')
+@app.route('/api/potential-teams/')
 def get_teams():
     return _get_bigquery_result(
         """SELECT DISTINCT team_name FROM `analysis.players`"""
     )
 
 
-@app.route('/national-teams/')
+@app.route('/api/national-teams/')
 def get_national_teams():
     return _get_bigquery_result(
         """SELECT DISTINCT country AS team_name FROM `analysis.players`"""
     )
 
 
-@app.route('/player-positions/')
+@app.route('/api/player-positions/')
 def get_player_positions():
     return _get_bigquery_result(
         """SELECT DISTINCT player_position FROM `analysis.players`"""
     )
 
 
-@app.route('/comparasion/<fifa_version>/<position>/<field>')
+@app.route('/api/comparasion/<fifa_version>/<position>/<field>')
 def get_top_players_comparasion(fifa_version, position, field):
     return _get_bigquery_result("""
         SELECT 
@@ -62,7 +65,7 @@ def get_top_players_comparasion(fifa_version, position, field):
     """, player_position=position, fifa_version=fifa_version.replace('FIFA ', ''), field=field)
 
 
-@app.route('/comparasion/<fifa_version>/<attribute>')
+@app.route('/api/comparasion/<fifa_version>/<attribute>')
 def get_top_players_by_attribute(fifa_version, attribute):
     return _get_bigquery_result("""
         SELECT 
@@ -73,7 +76,7 @@ def get_top_players_by_attribute(fifa_version, attribute):
     """, fifa_version=fifa_version.replace('FIFA ', ''), attribute=attribute)
 
 
-@app.route('/best/teams/<team_name>/')
+@app.route('/api/best/teams/<team_name>/')
 def get_best_starting_team(team_name):
     return _get_bigquery_result("""
         SELECT 
@@ -90,7 +93,7 @@ def get_best_starting_team(team_name):
     """, team_name=team_name)
 
 
-@app.route('/combined-teams/<team_1>/<team_2>/')
+@app.route('/api/combined-teams/<team_1>/<team_2>/')
 def get_best_combined_starting_team(team_1, team_2):
     return _get_bigquery_result("""
         SELECT 
@@ -107,7 +110,7 @@ def get_best_combined_starting_team(team_1, team_2):
     """, team_1=team_1, team_2=team_2)
 
 
-@app.route('/worst/teams/<team_name>/')
+@app.route('/api/worst/teams/<team_name>/')
 def get_worst_starting_team(team_name):
     return _get_bigquery_result("""
         SELECT
@@ -124,7 +127,7 @@ def get_worst_starting_team(team_name):
     """, team_name=team_name)
 
 
-@app.route('/best/national-teams/<country_name>/')
+@app.route('/api/best/national-teams/<country_name>/')
 def get_national_team(country_name):
     return _get_bigquery_result("""
         SELECT 
@@ -141,7 +144,7 @@ def get_national_team(country_name):
     """, country_name=country_name)
 
 
-@app.route('/best/potential-teams/<team_name>/')
+@app.route('/api/best/potential-teams/<team_name>/')
 def get_potential_team(team_name):
     return _get_bigquery_result("""
         SELECT 
@@ -162,7 +165,7 @@ def get_potential_team(team_name):
     """, team_name=team_name)
 
 
-@app.route('/position-evoloution/<position>')
+@app.route('/api/position-evoloution/<position>')
 def get_position_evolution(position):
     return _get_bigquery_result("""
         SELECT 
@@ -173,7 +176,7 @@ def get_position_evolution(position):
     """, position=position)
 
 
-@app.route('/version-team/<version_name>/')
+@app.route('/api/version-team/<version_name>/')
 def get_version_team(version_name):
     return _get_bigquery_result("""
         SELECT 
