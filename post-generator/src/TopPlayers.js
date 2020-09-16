@@ -136,8 +136,6 @@ More players and more stats to come!`
                 </div>
             )
         })
-        const fifaLogoSrc = logos[this.state.selectedVersion] ? logos[this.state.selectedVersion].src : ''
-        const fifaLogoWidth = logos[this.state.selectedVersion] ? logos[this.state.selectedVersion].width : ''
         return (
             <Container fixed >
                 <ConfigPanel title={"Top Players"}>

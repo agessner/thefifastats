@@ -3,6 +3,11 @@
     src: url(./fonts/Anton-Regular.ttf);
 }
 
+@font-face {
+    font-family: fifa-source;
+    src: url(./fonts/EASPORTS15.ttf);
+}
+
 body {
     font-family: fifa;
     letter-spacing: 1.5px;
@@ -123,6 +128,7 @@ body {
 }
 
 .fifaText {
+    font-family: fifa-source;
     display: flex;
     font-size: 35px;
     background: #ffffff80;
