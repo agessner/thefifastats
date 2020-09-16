@@ -48,11 +48,11 @@ export class BackgroundImage extends React.Component {
 
     render() {
         const linearBackground = this.props.useLinear &&
-            `linear-gradient(to right, rgba(59, 1, 235, 0), rgb(57, 87, 228)),`
+            `linear-gradient(to right, rgba(59, 1, 235, 0), rgb(4, 4, 4)),`
         return ([
             <Grid container spacing={2}>
                 <Grid item xs={2}>
-                    <TextField label="Background image URL" label="Image URL" onChange={this.changeBackgroundImageUrl}/>
+                    <TextField label="Background image URL" onChange={this.changeBackgroundImageUrl}/>
                 </Grid>
                 <Grid item xs={2}>
                     <Typography id="size" gutterBottom>
