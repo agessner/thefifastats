@@ -10,7 +10,7 @@ const loadCombinedTeamPlayers = (team1, team2) => get(`combined-teams/${team1}/$
 const loadBestVersionTeam = version => get(`version-team/${version}/`)
 
 function get(url) {
-    return fetch(`http://127.0.0.1:5000/${url}`).then(res => res.json()).then(result => result['result'])
+    return fetch(`https://fifaeng.uc.r.appspot.com/api/${url}`).then(res => res.json()).then(result => result['result'])
 }
 
 export default {
