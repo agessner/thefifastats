@@ -1,0 +1,43 @@
+.homeContainer {
+    display: flex;
+    min-height: 660px;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    text-align: center;
+}
+
+.title {
+    font-size: 60px;
+    margin-bottom: 40px;
+}
+
+.description {
+    font-size: 30px;
+    color: #5b5b5b;
+}
+
+.about {
+    font-size: 20px;
+    color: #444444;
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.aboutInfo {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: 12px;
+}
+
+.aboutInfo a {
+    color: #3d3e40;
+}
+
+footer {
+    margin-top: 40px;
+    position: absolute;
+    bottom: 0;
+}
