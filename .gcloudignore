@@ -21,3 +21,4 @@ __pycache__/
 /posts/
 /post-generator/node_modules/
 /post-generator/src/
+/node_modules/
