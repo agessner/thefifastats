@@ -1,3 +1,15 @@
 header {
     box-shadow: none !important;
 }
+
+@media (max-width: 700px) {
+    .noavailable {
+        display: block;
+    }
+}
+
+@media (min-width: 701px) {
+    .noavailable {
+        display: none;
+    }
+}

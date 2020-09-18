@@ -37,7 +37,7 @@ ListItemLink.propTypes = {
   to: PropTypes.string.isRequired,
 };
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,21 +57,14 @@ const useStyles = makeStyles((theme) => ({
             color: '#2b2b2b',
             position: 'unset'
         },
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        [theme.breakpoints.up('sm')]: {
-            display: 'none',
-        },
+        [theme.breakpoints.down(700)]: {
+            display: 'none'
+        }
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
         width: drawerWidth,
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
+    }
 }));
 
 
@@ -110,10 +103,13 @@ function App() {
 
     return (
         <div className="App">
+            <div className={"noavailable"}>
+                Sorry! This site is still not available on screens under 700px wide.
+            </div>
             <AppBar className={classes.appBar}>
                 <Router>
                     <nav className={classes.drawer} aria-label="mailbox folders">
-                        <Hidden xsDown implementation="css">
+                        <Hidden implementation="css">
                             <Drawer
                                 variant="permanent"
                                 classes={{

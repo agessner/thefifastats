@@ -20,17 +20,17 @@ export default class Post extends React.Component {
     render() {
         return (
             <Grid container spacing={3}>
-                <Grid item xs={5}>
+                <Grid item md={5}>
                     <div id="imgPost" className={classnames(styles.post, this.props.className)}>
                         {this.props.children}
                     </div>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item md={4}>
                     {this.props.options}
                 </Grid>
-                <Grid item xs={3}>
-                    <Grid item xs={12}><Tags/></Grid>
-                    <Grid item xs={12}>
+                <Grid item md={3} sm={6}>
+                    <Grid item xs={12} sm={6}><Tags/></Grid>
+                    <Grid item xs={12} sm={6}>
                         <TextareaAutosize rows={20} cols={33} defaultValue={this.state.postDescription}>
                         </TextareaAutosize>
                     </Grid>
