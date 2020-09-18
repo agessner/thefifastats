@@ -1,3 +1,5 @@
 /venv/
 /venv2/
 /post-generator/node_modules/
+/node_modules/
+/posts/
